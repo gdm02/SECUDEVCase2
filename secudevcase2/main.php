@@ -9,10 +9,10 @@
 		<h3> Welcome to Main Page! </h3>
 	</div>
 	<div align = "center">
-		<form action="register.php" method="get">
+		<form action="/register.php" method="get">
 		    <input type="submit" value="Register"/>
 		</form>
-		<form action="login.php" method="get">
+		<form action="/login.php" method="get">
 		    <input type="submit" value="Login"  />
 		</form>
 	</div>
