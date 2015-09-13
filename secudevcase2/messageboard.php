@@ -19,7 +19,7 @@
 					</select>
 					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
 		
-		echo "<br><br><form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>"
+		echo "<br><br><form method='POST' action='/submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
 				."<input type='submit' value='Post' />"
 						."</form>";
@@ -54,6 +54,60 @@ button {
 	border: 0;
 }
 </style>
+<script src = "jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	function divClicked() {
+	    var divToReplace = $(this).parent().closest('table').find('div.textpost'); //select's the contents of div immediately previous to the button
+		var divHtml = divToReplace.html();
+		var id = divToReplace.attr('id');
+		//var divclass = divToReplace.attr('class');
+		
+	    var editableText = $("<textarea />", {
+			name: 'new_content',
+	        rows: '4',
+	        cols: '50'
+	    });
+	    editableText.val(divHtml);
+
+	    var newDiv = $('<div/>');
+	    
+	    var newForm = $('<form />', { 
+		    		action:'/editpost.php',
+		    		method:'POST' 
+			    })
+	    newForm.append('<input type="hidden" name="post_id" value="' + id + '" />');
+	    newForm.append(editableText);
+	    newForm.append('<input type="submit" value="Save Changes" />');
+
+	    newDiv.append(newForm);
+	    
+	    var cancel = $('<button/>',
+	    	    {
+	    	        text: 'Cancel',
+	    	        click: function () { 
+		    	        editableText.blur(editableTextBlurred(id, newDiv, divHtml)); 
+		    	        }
+	    	    });
+		newDiv.append(cancel);
+	    
+	    divToReplace.replaceWith(newDiv); //replaces the required div with textarea
+	    editableText.focus();
+	}
+	
+	function editableTextBlurred(div_id, target, html) {
+	    var viewableText = $("<div>",{
+		    	'class': 'textpost',
+		    	id: div_id
+	    	});
+	    viewableText.html(html);
+	    target.replaceWith(viewableText);
+	}
+	
+	$(document).ready(function () {
+	    $(".editpost").click(divClicked); //calls the function on button click
+	});
+</script>
+
 </head>
 <body>
 	<?php
@@ -74,8 +128,8 @@ button {
 		}
 		
 
-		if($_SERVER['REQUEST_METHOD'] != 'POST'){
-			echo "<a href ='editprofile.php'>Edit your profile</a> <br> <a href='signout.php'>Logout</a><br><br>";
+		//if($_SERVER['REQUEST_METHOD'] != 'POST'){
+			echo "<a href ='/editprofile.php'>Edit your profile</a> <br> <a href='/signout.php'>Logout</a><br><br>";
 			echo 
 			'User profile: <br><label>Firstname: </label>'.
 					$_SESSION["firstname"]
@@ -120,20 +174,20 @@ button {
 					echo '<table border = "1" style = "width:100%">
 					<tr>';
 					echo 
-					"<td> <a href='userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
+					"<td> <a href='/userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
-						echo '<td><button>Edit</button></td>
+						echo '<td><button class="editpost">Edit</button></td>
 						<td><button>Delete</button></td>';
 					}
 					
 					echo "</tr>
 					<tr>
-					<td><a href='userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
+					<td><a href='/userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
 					<td colspan="3">
 					
-					<div id = "textpost" rows="4" cols="50">'. strip($row['content']) . '</div>
+					<div class = "textpost" id="'. $row['id'] .'">'. strip($row['content']) . '</div>
 					</td>
 					</tr>
 					<tr>
@@ -149,19 +203,19 @@ button {
 			}
 		
 		
-		}
+		//}
 		
-		//form has been submitted
-		else{
-			$query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
-					"VALUES(:acc_id,:content,CURDATE(), NOW())";
+// 		form has been submitted
+// 		else{
+// 			$query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
+// 					"VALUES(:acc_id,:content,CURDATE(), NOW())";
 		
-			$stmt = $db->prepare($query);
-			$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' =>  $_POST["post_content"]));
+// 			$stmt = $db->prepare($query);
+// 			$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' =>  $_POST["post_content"]));
 		
-			header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"])); /* Redirect browser */
-			exit();
-		}
+// 			header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"])); /* Redirect browser */
+// 			exit();
+// 		}
 	?>
 	
 
