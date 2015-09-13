@@ -7,6 +7,24 @@
 <html>
 <head>
 	<title>Global Message Boards</title>
+	<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 4px;
+}
+
+button {
+	color: blue;
+	background-color: white;
+	border: 0;
+}
+
+#noborder {
+	border: 0;
+}
+</style>
 </head>
 <body>
 	<?php
@@ -39,7 +57,6 @@
 	<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<label>Firstname: </label>
 		<?php echo $_SESSION["firstname"]?>
-		<input type = "text" name = "firstname" maxlength = "50"/>
 		<br> <br>
 		<label>Surname: </label>
 		<?php echo $_SESSION["lastname"]?>
@@ -60,5 +77,27 @@
 		<br> <br>
 		<input type = "submit" name = "submit" id = "submit" value = "Confirm changes"/>
 	</form>
+	
+	<br><br>
+	
+	<div id = "forumpost">
+	<table border = "1" style = "width:40%">
+	<tr>
+		<td><button>First Name</button></td>
+		<td>Date Posted</td>
+		<td><button>Edit</button></td>
+		<td><button>Delete</button></td>
+	</tr>
+	<tr >
+		<td><button>Username</button></td>
+		<td colspan="3"><textarea name = "textpost" id = "textpost" rows="4" cols="50">POST</textarea></td>
+	</tr>
+	<tr>
+		<td>Date Joined</td>
+		<td colspan="3">Last Edited</td>
+	</tr>
+	</table>
+	</div>
+	
 </body>
 </html>
