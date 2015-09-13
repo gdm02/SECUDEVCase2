@@ -1,3 +1,8 @@
+<?php 
+	session_start();
+	include 'connect.php';
+	include 'stripper.php';
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -12,6 +17,12 @@
 			$('#gender').on("change", function() {
 				changeSalutation($('#gender').val());
 			});
+			
+			<?php if ((!empty($_SESSION['accesslvl']) && isset($_SESSION['accesslvl']) && strtolower($_SESSION['accesslvl']) == "user")) ?>
+				$('#accesslvl').hide();
+				
+			<?php if (empty($_SESSION['accesslvl'])) ?>
+				$('#accesslvl').hide();
 		});
 		
 		function changeSalutation(gender) {
@@ -142,7 +153,7 @@
 			
 			$aboutme = $_POST["aboutme"];
 			
-			if (empty($_POST["accesslvl"])){
+			if (!isset($_POST["accesslvl"])){
 				$accesslvlErr = "Access level required.";
 				$valid = false;
 			} else {
@@ -156,7 +167,6 @@
 			}
 			
 			if ($valid) { 
-				
 				$query = "INSERT INTO accounts(fname, lname, gender, salutation, birthdate, username,password, about,level,joindate ) " .
 						"VALUES(:fname,:lname,:gender, :salutation, :birthdate, :username, :password, :about, :level, CURDATE())";
 				try{
@@ -227,12 +237,26 @@
    		<textarea name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
    		<br><br>
 		<?php
-			if (1) { // replace with if session logged in user is admin
+			if (isset($_SESSION['accesslvl']) && !empty($_SESSION['accesslvl'])) {
+				if (strtolower($_SESSION['accesslvl']) == "admin") { // replace with if session logged in user is admin
+					echo '
+					<label>Access level: </label>	
+					<select name = "accesslvl" id = "accesslvl">
+						<option value = "User" id = "userlvl">User</option>
+						<option value = "Admin" id = "adminlvl">Admin</option>
+					</select>
+					';
+				} else {
+					echo '
+					<select name = "accesslvl" id = "accesslvl" value = "User">
+					</select>
+					';
+				}
+			} else {
+				echo "LOL";
 				echo '
-				<label>Access level: </label>	
-				<select name = "accesslvl" id = "accesslvl">
+				<select name = "accesslvl" id = "accesslvl" value = "User">
 					<option value = "User" id = "userlvl">User</option>
-					<option value = "Admin" id = "adminlvl">Admin</option>
 				</select>
 				';
 			}
