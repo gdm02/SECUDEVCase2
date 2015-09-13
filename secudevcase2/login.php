@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1); // change to 0 for production version
-error_reporting(E_ALL);
 
 session_start();
 

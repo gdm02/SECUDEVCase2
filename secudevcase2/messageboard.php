@@ -118,8 +118,9 @@ button {
 					echo "'>";
 					
 					echo '<table border = "1" style = "width:100%">
-					<tr>
-					<td><button>' . $_SESSION['firstname'] . '</button></td>
+					<tr>';
+					echo 
+					"<td> <a href='userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
@@ -127,9 +128,9 @@ button {
 						<td><button>Delete</button></td>';
 					}
 					
-					echo '</tr>
+					echo "</tr>
 					<tr>
-					<td><button>' . $row['username'] . '</button></td>
+					<td><a href='userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
 					<td colspan="3">
 					
 					<div id = "textpost" rows="4" cols="50">'. strip($row['content']) . '</div>
