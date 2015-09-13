@@ -4,8 +4,7 @@
 	include 'stripper.php';
 	
 	function showInputBox(){
-
-		echo '<br><br>Color:
+		echo 'Color:
 					<select id = "postcolor">
 					<option value = "black">Black</option>
 					<option value = "blue">Blue</option>
@@ -22,8 +21,8 @@
 		
 		echo "<br><br><form method='POST' action='/submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
-				."<input type='submit' value='Post' />"
-						."</form>";
+				."<br><input type='submit' value='Post' />"
+						."</form><br>";
 	}
 ?>
 <!DOCTYPE HTML>
@@ -129,9 +128,33 @@ button {
 		}
 		
 
-		
+		//if($_SERVER['REQUEST_METHOD'] != 'POST'){
+			echo "<a href ='/editprofile.php'>Edit your profile</a> <br> <a href='/signout.php'>Logout</a><br><br>";
+			echo 
+			'User profile: <br><label>Firstname: </label>'.
+					$_SESSION["firstname"]
+					.'<br>
+					<label>Surname: </label>'.
+					$_SESSION["lastname"]
+					.'<br>
+					<label>Gender: </label>'.
+					$_SESSION["gender"]
+					.'<br>
+					<label>Date Joined:</label>'.
+					$_SESSION["joindate"]
+					.'<br>
+					<label>Salutation:</label>'.
+					$_SESSION["salutation"]
+					.'<br>
+					<label>Birthdate: </label>'.
+					$_SESSION["birthdate"]
+					.'<br>
+					<label>About Me: </label>'.
+					$_SESSION["aboutme"]
+					.'<br> <br>';
+			
 			showInputBox();
-
+		
 			$stmt = $db->query('SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
 								FROM posts 
 								INNER JOIN accounts
