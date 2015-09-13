@@ -84,16 +84,33 @@ button {
 	<table border = "1" style = "width:40%">
 	<tr>
 		<td><button>First Name</button></td>
-		<td>Date Posted</td>
+		<td>Date Posted: </td>
 		<td><button>Edit</button></td>
 		<td><button>Delete</button></td>
 	</tr>
-	<tr >
+	<tr>
 		<td><button>Username</button></td>
-		<td colspan="3"><textarea name = "textpost" id = "textpost" rows="4" cols="50">POST</textarea></td>
+		<td colspan="3"> 
+		 Color: 
+		 <select id = "postcolor">
+		 	<option value = "black">Black</option>
+		 	<option value = "blue">Blue</option>
+		 	<option value = "red">Red</option>
+		 	<option value = "yellow">Yellow</option>
+		 	<option value = "green">Green</option>
+		 </select>
+		 Font: 
+		 <select id = "postfont">
+		 	<option value = "arial">Arial</option>
+		 	<option value = "times new roman">Times New Roman</option>
+		 </select>
+		 Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">
+		 <br><br> 
+		 <textarea name = "textpost" id = "textpost" rows="4" cols="50">POST</textarea>
+		 </td>
 	</tr>
 	<tr>
-		<td>Date Joined</td>
+		<td>Date Joined: </td>
 		<td colspan="3">Last Edited</td>
 	</tr>
 	</table>
