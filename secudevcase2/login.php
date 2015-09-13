@@ -83,6 +83,7 @@ else
                         $_SESSION['firstname']  = $row['fname'];
                         $_SESSION['lastname'] = $row['lname'];
                         $_SESSION['gender'] = $row['gender'];
+                        $_SESSION['birthdate'] = $row['birthdate'];
                         $_SESSION['salutation'] = $row['salutation'];
                         $_SESSION['username'] = $row['username'];
                         $_SESSION['password'] = $row['password'];

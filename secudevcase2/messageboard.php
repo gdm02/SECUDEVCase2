@@ -43,7 +43,7 @@ button {
 	border: 0;
 }
 .post-container-odd {
-	background-color: yellow;
+	background-color: #FFFFCC;
 	border: 0;
 }
 .post-container-even {
@@ -75,7 +75,29 @@ button {
 		
 
 		if($_SERVER['REQUEST_METHOD'] != 'POST'){
-			echo "<a href ='editprofile.php'>Edit your profile</a> <br> <a href='signout.php'>Logout</a>";
+			echo "<a href ='editprofile.php'>Edit your profile</a> <br> <a href='signout.php'>Logout</a><br><br>";
+			echo 
+			'User profile: <br><label>Firstname: </label>'.
+					$_SESSION["firstname"]
+					.'<br>
+					<label>Surname: </label>'.
+					$_SESSION["lastname"]
+					.'<br>
+					<label>Gender: </label>'.
+					$_SESSION["gender"]
+					.'<br>
+					<label>Date Joined:</label>'.
+					$_SESSION["joindate"]
+					.'<br>
+					<label>Salutation:</label>'.
+					$_SESSION["salutation"]
+					.'<br>
+					<label>Birthdate: </label>'.
+					$_SESSION["birthdate"]
+					.'<br>
+					<label>About Me: </label>'.
+					$_SESSION["aboutme"]
+					.'<br> <br>';
 			
 			showInputBox();
 		
