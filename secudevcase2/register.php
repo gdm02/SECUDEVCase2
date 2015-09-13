@@ -187,7 +187,7 @@
 			return $data;
 		}
 		*/
-		/*<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">*/
+		
 	?>
 	<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<label>Firstname: </label>
@@ -226,11 +226,17 @@
 		<br>
    		<textarea name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
    		<br><br>
-		<label>Access level: </label>	
-		<select name = "accesslvl" id = "accesslvl">
-			<option value = "User" id = "userlvl">User</option>
-			<option value = "Admin" id = "adminlvl">Admin</option>
-		</select>
+		<?php
+			if (1) { // replace with if session logged in user is admin
+				echo '
+				<label>Access level: </label>	
+				<select name = "accesslvl" id = "accesslvl">
+					<option value = "User" id = "userlvl">User</option>
+					<option value = "Admin" id = "adminlvl">Admin</option>
+				</select>
+				';
+			}
+		?>
 		<br><br>
 		<label>* - required</label>
 		<br> <br>
