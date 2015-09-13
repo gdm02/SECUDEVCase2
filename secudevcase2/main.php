@@ -9,8 +9,12 @@
 		<h3> Welcome to Main Page! </h3>
 	</div>
 	<div align = "center">
-		<button type = button a href = "register.php"> Register </button>
-		<button type = button a href = "login.php"> Login </button>
+		<form action="register.php" method="get">
+		    <input type="submit" value="Register"/>
+		</form>
+		<form action="login.php" method="get">
+		    <input type="submit" value="Login"  />
+		</form>
 	</div>
 </body>
 </html>

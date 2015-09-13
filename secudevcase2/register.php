@@ -33,6 +33,7 @@
 	</script>
 	
 	<?php
+		include 'connect.php';
 		$firstname = $lastname = $gender = $salutation = $birthdate = $username = $password = $aboutme = $accesslvl = "";
 		$firstnameErr = $lastnameErr = $genderErr = $salutationErr = $birthdateErr = $usernameErr = $passwordErr = $aboutmeErr = $accesslvlErr = "";
 		
@@ -48,6 +49,8 @@
 			exit;
 		}
 		*/
+		
+		$valid = true;
 		
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (empty($_POST["firstname"])){
@@ -152,9 +155,26 @@
 				}
 			}
 			
-			if ($valid) {
-				header('Location: main.php');
-				exit();
+			if ($valid) { 
+				
+				$query = "INSERT INTO accounts(fname, lname, gender, salutation, birthdate, username,password, about,level,joindate ) " .
+						"VALUES(:fname,:lname,:gender, :salutation, :birthdate, :username, :password, :about, :level, CURDATE())";
+				try{
+					$stmt = $db->prepare($query);
+					$stmt->execute(array
+							(	':fname' => $_POST["firstname"], ':lname' =>  $_POST["lastname"], ':gender' =>  $_POST["gender"],
+								':salutation' => $_POST["salutation"], ':birthdate' =>  $_POST["birthdate"], ':username' =>  $_POST["username"],
+								':password' => $_POST["password"], ':about' =>  $_POST["aboutme"], ':level' =>  $_POST["accesslvl"]
+								
+							)
+						);
+					echo "Registration successful. <a href='login.php'>Login</a>";
+				}
+				catch(PDOException $e){
+					echo "An error occured. Click <a href='main.php'>here</a> to go back to main page.";
+				}
+				//header('Location: main.php');
+				//exit();
 			}
 		}
 		
