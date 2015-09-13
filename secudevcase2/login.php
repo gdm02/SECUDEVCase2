@@ -59,39 +59,44 @@ else
             //$password = sha1($_POST['user_pass']); encrypted password
             $password = $_POST['user_pass'];
             
-            $stmt = $db->prepare("SELECT * FROM accounts WHERE username=:username AND password=:password");
-            $stmt->execute(array(':username' => $username, ':password' => $password));
-			//handle try catch later
-          
-            
-           
-            if($stmt -> rowCount() == 0)
-                {
-                    echo 'You have supplied a wrong user/password combination. <a href="login.php"> Please try again. </a>';
-                }
-                else
-                {
-                    //set the $_SESSION['signed_in'] variable to TRUE
-                    $_SESSION['signed_in'] = true;
-                     
-                    //we also put the user_id and user_name values in the $_SESSION, so we can use it at various pages
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                    {
-                        $_SESSION['id']    = $row['id'];
-                        $_SESSION['firstname']  = $row['fname'];
-                        $_SESSION['lastname'] = $row['lname'];
-                        $_SESSION['gender'] = $row['gender'];
-                        $_SESSION['birthdate'] = $row['birthdate'];
-                        $_SESSION['salutation'] = $row['salutation'];
-                        $_SESSION['username'] = $row['username'];
-                        $_SESSION['password'] = $row['password'];
-                        $_SESSION['aboutme'] = $row['about'];
-                        $_SESSION['accesslvl'] = $row['level'];
-                        $_SESSION['joindate'] = $row['joindate'];
-                    }
-                    
-                    echo 'Welcome, ' . $_SESSION['firstname'] . '. <a href="messageboard.php">Proceed to the forum overview</a>.';
-                }
+            try{
+	            $stmt = $db->prepare("SELECT * FROM accounts WHERE username=:username AND password=:password");
+	            $stmt->execute(array(':username' => $username, ':password' => $password));
+				//handle try catch later
+	          
+	            
+	           
+	            if($stmt -> rowCount() == 0)
+	                {
+	                    echo 'You have supplied a wrong user/password combination. <a href="login.php"> Please try again. </a>';
+	                }
+	                else
+	                {
+	                    //set the $_SESSION['signed_in'] variable to TRUE
+	                    $_SESSION['signed_in'] = true;
+	                     
+	                    //we also put the user_id and user_name values in the $_SESSION, so we can use it at various pages
+	                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+	                    {
+	                        $_SESSION['id']    = $row['id'];
+	                        $_SESSION['firstname']  = $row['fname'];
+	                        $_SESSION['lastname'] = $row['lname'];
+	                        $_SESSION['gender'] = $row['gender'];
+	                        $_SESSION['birthdate'] = $row['birthdate'];
+	                        $_SESSION['salutation'] = $row['salutation'];
+	                        $_SESSION['username'] = $row['username'];
+	                        $_SESSION['password'] = $row['password'];
+	                        $_SESSION['aboutme'] = $row['about'];
+	                        $_SESSION['accesslvl'] = $row['level'];
+	                        $_SESSION['joindate'] = $row['joindate'];
+	                    }
+	                    
+	                    echo 'Welcome, ' . $_SESSION['firstname'] . '. <a href="messageboard.php">Proceed to the forum overview</a>.';
+	                }
+            }
+            catch(PDOException $e){
+            	echo 'An error occured. <a href="login.php"> Please try again. </a>';
+            }
             
         }
     }
