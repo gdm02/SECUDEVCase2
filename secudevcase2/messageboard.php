@@ -179,7 +179,10 @@ button {
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
 						echo '<td><button class="editpost">Edit</button></td>
-						<td><button>Delete</button></td>';
+						<td><form action="/deletepost.php" method="POST">
+	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
+	    				<input type="submit" class="buttontype" value="Delete"/>
+	    				</form></td>';
 					}
 					
 					echo "</tr>
