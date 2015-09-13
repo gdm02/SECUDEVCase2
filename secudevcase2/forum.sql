@@ -33,9 +33,10 @@ CREATE TABLE `accounts` (
   `password` varchar(50) DEFAULT NULL,
   `about` varchar(255) DEFAULT NULL,
   `level` varchar(10) DEFAULT NULL,
+  `joindate` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +45,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'cdr','ihd','male','Sir','1995-09-09','admin','1234','default admin account','admin'),(2,'chester','ibarrientos','male','Sir','1994-01-12','rets','1234','because im batman','user'),(3,'daryll','hu','male','Sir','1994-01-12','centhier','1234','i dig chinese chicks','user');
+INSERT INTO `accounts` VALUES (7,'chester','ibarrientos','male','Sir','2015-09-09','rets','1234','im batman','user','2015-09-09'),(8,'cdr','dhi','male','Sir','1995-09-09','admin','1234','default admin account','admin','2015-09-09');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,10 +61,11 @@ CREATE TABLE `posts` (
   `acc_id` int(11) NOT NULL,
   `content` text,
   `postdate` date DEFAULT NULL,
+  `last_edited` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `acc_id` (`acc_id`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`acc_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +74,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (30,7,'i am batman','2015-09-13','2015-09-13 23:45:42'),(31,7,'i am batman legend','2015-09-13','2015-09-13 23:46:16'),(32,8,'i am admin','2015-09-13','2015-09-13 23:47:31'),(33,8,'you cannot see edit','2015-09-13','2015-09-13 23:48:04'),(34,8,'<b> this is bold ','2015-09-13','2015-09-13 23:48:27'),(35,7,'div test','2015-09-13','2015-09-13 23:49:33');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -84,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-13 14:06:29
+-- Dump completed on 2015-09-13 23:57:56

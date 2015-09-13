@@ -1,5 +1,14 @@
 <?php 
 	session_start();
+	include 'connect.php';
+	include 'stripper.php';
+	
+	function showInputBox(){
+		echo "<br><br><form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>"
+				."<textarea name='post_content' /></textarea>"
+				."<input type='submit' value='Post' />"
+						."</form>";
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +27,14 @@ button {
 	background-color: white;
 	border: 0;
 }
-
+.post-container-odd {
+	background-color: yellow;
+	border: 0;
+}
+.post-container-even {
+	background-color: white;
+	border: 0;
+}
 #noborder {
 	border: 0;
 }
@@ -42,49 +58,89 @@ button {
 			$this -> total = $rs -> num_rows;
 		}
 		
-		print_r($_SESSION);
 
+		if($_SERVER['REQUEST_METHOD'] != 'POST'){
+			echo "<a href ='editprofile.php'>Edit your profile</a>";
+			
+			showInputBox();
+		
+			$stmt = $db->query('SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
+								FROM posts 
+								INNER JOIN accounts
+								ON posts.acc_id = accounts.id 
+								ORDER BY last_edited DESC');
+			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+			if($stmt->rowCount() > 0){
+				foreach($results as $key=>$row) {
+					echo "<div class='post-container-";
+					if($key % 2 == 0)
+						echo "even";
+					else
+						echo "odd";
+					echo "'>";
+					
+					echo '<table border = "1" style = "width:40%">
+					<tr>
+					<td><button>' . $_SESSION['firstname'] . '</button></td>
+					<td>Date Posted: ' .$row['postdate'] . '</td>';
+					
+					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
+						echo '<td><button>Edit</button></td>
+						<td><button>Delete</button></td>';
+					}
+					
+					echo '</tr>
+					<tr>
+					<td><button>' . $row['username'] . '</button></td>
+					<td colspan="3">
+					Color:
+					<select id = "postcolor">
+					<option value = "black">Black</option>
+					<option value = "blue">Blue</option>
+					<option value = "red">Red</option>
+					<option value = "yellow">Yellow</option>
+					<option value = "green">Green</option>
+					</select>
+					Font:
+					<select id = "postfont">
+					<option value = "arial">Arial</option>
+					<option value = "times new roman">Times New Roman</option>
+					</select>
+					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">
+					<br><br>
+					<div id = "textpost" rows="4" cols="50">'. strip($row['content']) . '</div>
+					</td>
+					</tr>
+					<tr>
+					<td>Date Joined:'  . $_SESSION['joindate'] . '</td>
+					<td colspan="3">Last Edited: ' . $row['last_edited'] . '</td>
+					</tr>
+					</table>';
+					echo "</div>";
+				}
+			}
+			else{
+				echo "No posts to show. <br>";
+			}
+		
+		
+		}
+		
+		//form has been submitted
+		else{
+			$query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
+					"VALUES(:acc_id,:content,CURDATE(), NOW())";
+		
+			$stmt = $db->prepare($query);
+			$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' =>  $_POST["post_content"]));
+		
+			header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"])); /* Redirect browser */
+			exit();
+		}
 	?>
 	
-	<a href ="editprofile">Edit your profile</a>
-	
-	<br><br>
-	
-	<div id = "forumpost">
-	<table border = "1" style = "width:40%">
-	<tr>
-		<td><button>First Name</button></td>
-		<td>Date Posted: </td>
-		<td><button>Edit</button></td>
-		<td><button>Delete</button></td>
-	</tr>
-	<tr>
-		<td><button>Username</button></td>
-		<td colspan="3"> 
-		 Color: 
-		 <select id = "postcolor">
-		 	<option value = "black">Black</option>
-		 	<option value = "blue">Blue</option>
-		 	<option value = "red">Red</option>
-		 	<option value = "yellow">Yellow</option>
-		 	<option value = "green">Green</option>
-		 </select>
-		 Font: 
-		 <select id = "postfont">
-		 	<option value = "arial">Arial</option>
-		 	<option value = "times new roman">Times New Roman</option>
-		 </select>
-		 Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">
-		 <br><br> 
-		 <textarea name = "textpost" id = "textpost" rows="4" cols="50">POST</textarea>
-		 </td>
-	</tr>
-	<tr>
-		<td>Date Joined: </td>
-		<td colspan="3">Last Edited</td>
-	</tr>
-	</table>
-	</div>
+
 	
 </body>
 </html>
