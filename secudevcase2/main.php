@@ -9,8 +9,8 @@
 		<h3> Welcome to Main Page! </h3>
 	</div>
 	<div align = "center">
-		<button type = button onclick = "register.php"> Register </button>
-		<button type = button onclick = "login.php"> LogIn </button>
+		<button type = button a href = "register.php"> Register </button>
+		<button type = button a href = "login.php"> Login </button>
 	</div>
 </body>
 </html>
