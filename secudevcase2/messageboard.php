@@ -117,7 +117,7 @@ button {
 						echo "odd";
 					echo "'>";
 					
-					echo '<table border = "1" style = "width:40%">
+					echo '<table border = "1" style = "width:100%">
 					<tr>
 					<td><button>' . $_SESSION['firstname'] . '</button></td>
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
