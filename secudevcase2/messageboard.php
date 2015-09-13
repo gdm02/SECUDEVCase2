@@ -60,7 +60,7 @@ button {
 		
 
 		if($_SERVER['REQUEST_METHOD'] != 'POST'){
-			echo "<a href ='editprofile.php'>Edit your profile</a>";
+			echo "<a href ='editprofile.php'>Edit your profile</a> <br> <a href='signout.php'>Logout</a>";
 			
 			showInputBox();
 		
