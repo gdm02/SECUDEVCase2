@@ -1,6 +1,11 @@
 <?php
 include 'session.php';
 include 'connect.php';
+if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
+{
+	header("Location: /main.php"); /* Redirect browser */
+	exit();
+}
 
 $query = "UPDATE posts SET content = :newcontent, last_edited = NOW() WHERE id = :id";
 

@@ -2,6 +2,11 @@
 	session_start();
 	include 'connect.php';
 	include 'stripper.php';
+	if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
+	{
+		header("Location: /main.php"); /* Redirect browser */
+		exit();
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -17,7 +22,7 @@
 				changeSalutation($('#gender').val());
 			});
 			
-			<?php if (strtolower($_SESSION['accesslvl']) == "user") ?>
+			<?php if (isset($_SESSION['accesslvl']) && strtolower($_SESSION['accesslvl']) == "user") ?>
 				$('#accesslvl').hide();
 		});
 		
@@ -216,13 +221,13 @@
 					echo '
 					<label>Access level: </label>	
 					<select name = "accesslvl" id = "accesslvl">
-						<option value = "User" id = "userlvl">User</option>
-						<option value = "Admin" id = "adminlvl">Admin</option>
+						<option value = "user" id = "userlvl">User</option>
+						<option value = "admin" id = "adminlvl">Admin</option>
 					</select>
 					';
 				} else {
 					echo '
-					<select name = "accesslvl" id = "accesslvl" value = "User">
+					<select name = "accesslvl" id = "accesslvl" value = "user">
 					</select>
 					';
 				}

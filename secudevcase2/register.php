@@ -18,10 +18,7 @@
 				changeSalutation($('#gender').val());
 			});
 			
-			<?php if ((!empty($_SESSION['accesslvl']) && isset($_SESSION['accesslvl']) && strtolower($_SESSION['accesslvl']) == "user")) ?>
-				$('#accesslvl').hide();
-				
-			<?php if (empty($_SESSION['accesslvl'])) ?>
+			<?php if (isset($_SESSION['accesslvl']) && strtolower($_SESSION['accesslvl']) == "user") ?>
 				$('#accesslvl').hide();
 		});
 		
@@ -242,18 +239,17 @@
 					echo '
 					<label>Access level: </label>	
 					<select name = "accesslvl" id = "accesslvl">
-						<option value = "User" id = "userlvl">User</option>
-						<option value = "Admin" id = "adminlvl">Admin</option>
+						<option value = "user" id = "userlvl">User</option>
+						<option value = "admin" id = "adminlvl">Admin</option>
 					</select>
 					';
 				} else {
 					echo '
-					<select name = "accesslvl" id = "accesslvl" value = "User">
+					<select name = "accesslvl" id = "accesslvl" value = "user">
 					</select>
 					';
 				}
 			} else {
-				echo "LOL";
 				echo '
 				<select name = "accesslvl" id = "accesslvl" value = "User">
 					<option value = "User" id = "userlvl">User</option>
