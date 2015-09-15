@@ -1,15 +1,89 @@
+<head>
+	
+	<style>
+	
+		body{
+			background-color: #ADD6FF;
+		}
+		
+		#header{
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 30px;
+		}
+		
+		div{
+			display: block;
+			text-align: center;
+		}
+		
+		form{
+			background-color: #94FF94;
+			margin: auto;
+			position: relative;
+			width: 300px;
+			height: 150px;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 17px;
+			font-style: italic;
+			line-height: 23px;
+			font-weight: bold;
+			color: #1975FF;
+			border-radius: 5px;
+			padding: 10px;
+			border: 1px solid black;
+			box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+		}
+		
+		input{
+			width: 290px;
+		}
+		
+		#submit{
+			background-color: #1975FF;
+    		border-radius: 5px;
+    		color: white;
+    		font-family: "Comic Sans MS", cursive, sans-serif;
+    		font-size: 15px;
+    		border: 1px solid black;
+    		width: 150px;
+		}
+		
+		.buttonholder{
+			text-align: center;
+		}
+		
+		#fail{
+			text-align: center;
+			color: red;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 25px;
+		}
+		
+		#success{
+			text-align: center;
+			color: #33CC33;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 25px;
+		}
+		
+	</style>
+	
+</head>
+
+
+<body>
 <?php
 
 session_start();
 
 include 'connect.php';
  
-echo '<h3>Sign in</h3>';
+echo "<div id = \"header\"> <h3>Sign in</h3> </div>";
  
 //first, check if the user is already signed in. If that is the case, there is no need to display this page
 if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
-    echo 'You are already signed in, you can <a href="/signout.php">sign out</a> if you want.';
+    echo '<div id = "success">You are already signed in, you can <a href="/signout.php">sign out</a> if you want.</div>';
 }
 else
 {
@@ -18,9 +92,11 @@ else
         /*the form hasn't been posted yet, display it
           note that the action="" will cause the form to post to the same page it is on */
         echo '<form method="post" action="">
-            Username: <input type="text" name="user_name" />
-            Password: <input type="password" name="user_pass">
-            <input type="submit" value="Sign in" />
+            Username: <br> <input type="text" name="user_name" />
+			<br>
+            Password: <br> <input type="password" name="user_pass">
+			<br><br>
+            <div class = "buttonholder"> <input id = "submit" type="submit" value="Sign in" /> </div>
          </form>';
     }
     else
@@ -68,7 +144,7 @@ else
 	           
 	            if($stmt -> rowCount() == 0)
 	                {
-	                    echo 'You have supplied a wrong user/password combination. <a href="login.php"> Please try again. </a>';
+	                    echo '<div id = "fail">You have supplied a wrong user/password combination. <a href="login.php"> Please try again. </a> </div>';
 	                }
 	                else
 	                {
@@ -91,16 +167,15 @@ else
 	                        $_SESSION['joindate'] = $row['joindate'];
 	                    }
 	                    
-	                    echo 'Welcome, ' . $_SESSION['firstname'] . '. <a href="messageboard.php">Proceed to the forum overview</a>.';
+	                    echo '<div id = "success">Welcome, ' . $_SESSION['firstname'] . '. <a href="messageboard.php">Proceed to the forum overview</a>.</div>';
 	                }
             }
             catch(PDOException $e){
-            	echo 'An error occured. <a href="login.php"> Please try again. </a>';
+            	echo '<div id = "fail"> An error occured. <a href="login.php"> Please try again. </a> </div>';
             }
             
         }
     }
 }
- 
-
-
+?>
+</body>

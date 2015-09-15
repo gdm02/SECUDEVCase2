@@ -1,65 +1,48 @@
-<?php 
-	session_start();
-	if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
-	{
-		header("Location: /main.php"); /* Redirect browser */
-		exit();
-	}
-	
-	include 'connect.php';
-	include 'stripper.php';
-	
-	function showInputBox(){
-		echo 'Color:
-					<select id = "postcolor">
-					<option value = "black">Black</option>
-					<option value = "blue">Blue</option>
-					<option value = "red">Red</option>
-					<option value = "yellow">Yellow</option>
-					<option value = "green">Green</option>
-					</select>
-					Font:
-					<select id = "postfont">
-					<option value = "arial">Arial</option>
-					<option value = "times new roman">Times New Roman</option>
-					</select>
-					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
-		
-		echo "<br><br><form method='POST' action='/submitpost.php'>"
-				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
-				."<br><input type='submit' value='Post' />"
-						."</form><br>";
-	}
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title>Global Message Boards</title>
 	<style>
-table, th, td {
-    border: 2px solid black;
-    border-collapse: collapse;
-    text-align: center;
-    padding: 4px;
+	
+		body{
+			background-color: #ADD6FF;
+		}
+	
+		table, th, td {
+    		border: 2px solid black;
+    		border-collapse: collapse;
+    		text-align: center;
+   			padding: 4px;
+		}
+
+		button {
+			color: blue;
+			background-color: white;
+			border: 0;
+		}
+		.post-container-odd {
+			background-color: #FFFFCC;
+			border: 0;
+		}
+		.post-container-even {
+			background-color: white;
+			border: 0;
+		}
+		#noborder {
+			border: 0;
+		}
+		
+		div, textarea, table, td, th, code, pre, samp {
+	word-wrap: break-word;
+}
+.left {
+    float: left;
+}
+.w50 {
+    width: 50%;
 }
 
-button {
-	color: blue;
-	background-color: white;
-	border: 0;
-}
-.post-container-odd {
-	background-color: #FFFFCC;
-	border: 0;
-}
-.post-container-even {
-	background-color: white;
-	border: 0;
-}
-#noborder {
-	border: 0;
-}
-</style>
+	</style>
 <script src = "jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 	function divClicked() {
@@ -116,6 +99,41 @@ button {
 
 </head>
 <body>
+
+	<?php 
+	session_start();
+	if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
+	{
+		header("Location: /main.php"); /* Redirect browser */
+		exit();
+	}
+	
+	include 'connect.php';
+	include 'stripper.php';
+	
+	function showInputBox(){
+		echo 'Color:
+					<select id = "postcolor">
+					<option value = "black">Black</option>
+					<option value = "blue">Blue</option>
+					<option value = "red">Red</option>
+					<option value = "yellow">Yellow</option>
+					<option value = "green">Green</option>
+					</select>
+					Font:
+					<select id = "postfont">
+					<option value = "arial">Arial</option>
+					<option value = "times new roman">Times New Roman</option>
+					</select>
+					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
+		
+		echo "<br><br><form method='POST' action='/submitpost.php'>"
+				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
+				."<br><input type='submit' value='Post' />"
+						."</form><br>";
+	}
+	?>
+
 	<?php
 		class Paginator {
 			private $_conn; //sql connection
@@ -226,7 +244,7 @@ button {
 // 			exit();
 // 		}
 	?>
-	
+
 
 	
 </body>

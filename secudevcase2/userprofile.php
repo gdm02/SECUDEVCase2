@@ -1,3 +1,30 @@
+
+
+<head>
+	
+	<style>
+	
+		body {
+			background-color: #ADD6FF;
+			text-align: center;
+			color: green;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 20px;
+		}
+		
+		label{
+			font-size: 20px;
+			font-style: italic;
+			font-weight: bold;
+			color: #1975FF;
+		}
+		
+	</style>
+	
+</head>
+
+<body>
+
 <?php
 session_start();
 include 'connect.php';
@@ -22,10 +49,10 @@ if(isset($_REQUEST['userprofile']) && isset($_SESSION['signed_in']) && $_SESSION
 					<label>Gender: </label>'.
 							$row['gender']
 							.'<br>
-					<label>Date Joined:</label>'.
+					<label>Date Joined: </label>'.
 							$row['joindate']
 							.'<br>
-					<label>Salutation:</label>'.
+					<label>Salutation: </label>'.
 							$row['salutation']
 							.'<br>
 					<label>Birthdate: </label>'.
@@ -36,13 +63,16 @@ if(isset($_REQUEST['userprofile']) && isset($_SESSION['signed_in']) && $_SESSION
 							.'<br> <br>';
 			}
 		else{
-			echo 'No information can be displayed.';
+			echo '<label>No information can be displayed.</label>';
 		}
 	}
 	catch(PDOException $e){
-		echo 'No information can be displayed.';
+		echo '<label>No information can be displayed.</label>';
 	}
 }
 else{
-	echo 'No information can be displayed.';
+	echo '<label>No information can be displayed.</label>';
 }
+?>
+
+</body>

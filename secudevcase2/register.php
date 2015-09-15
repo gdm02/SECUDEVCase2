@@ -251,7 +251,7 @@
 								
 							)
 						);
-					echo "<div id = \"success\">Registration successful.</div> <a href='login.php'>Login</a>";
+					echo "<div id = \"success\">Registration successful. <a href='login.php'>Login</a> </div>";
 				}
 				catch(PDOException $e){
 					echo "<div id = \"fail\">An error occured. Click <a href='main.php'>here</a> to go back to main page.</div>";
