@@ -1,19 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	body {
+		background-color: #ADD6FF;
+	}
+	
+	#header {
+		font-family: "Comic Sans MS", cursive, sans-serif;
+		font-size: 30px;
+	}
+	
+	form {
+		display: inline-block;
+		width: 100px;
+		padding: 75px;
+	}
+	
+	#submit {
+		background-color: #1975FF;
+    	border-radius: 5px;
+    	color: white;
+    	font-family: "Comic Sans MS", cursive, sans-serif;
+    	font-size: 15px;
+    	border: 2px solid black;
+    	width: 150px;
+	}
+	
+	#submit:hover {
+    	border: 2px solid white;
+    	background: red;
+    	box-shadow: 2px 2px 10px #777;
+	}
+	
+</style>
 <meta charset="ISO-8859-1">
 <title>Main Page</title>
 </head>
 <body>
-	<div align = "center">
-		<h3> Welcome to Main Page! </h3>
+	<div align = "center" id = "header">
+		<h2> Welcome to Main Page! </h2>
 	</div>
 	<div align = "center">
 		<form action="/register.php" method="get">
-		    <input type="submit" value="Register"/>
+		    <input id = "submit" type="submit" value="Register"/>
 		</form>
 		<form action="/login.php" method="get">
-		    <input type="submit" value="Login"  />
+		    <input id = "submit" type="submit" value="Login"  />
 		</form>
 	</div>
 </body>

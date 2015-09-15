@@ -6,6 +6,78 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<style>
+		
+		body{
+			background-color: #ADD6FF;
+		}
+		
+		#header{
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 30px;
+		}
+		
+		span{
+			color: red;
+		}
+		
+		form {
+			background-color: #94FF94;
+			margin: auto;
+			position: relative;
+			width: 380px;
+			height: 440px;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 15px;
+			font-style: italic;
+			line-height: 23px;
+			font-weight: bold;
+			color: #1975FF;
+			border-radius: 5px;
+			padding: 10px;
+			border: 1px solid black;
+			box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+		}
+		
+		#required{
+			color: red;
+		}
+		
+		#submit {
+			background-color: #1975FF;
+    		border-radius: 5px;
+    		color: white;
+    		font-family: "Comic Sans MS", cursive, sans-serif;
+    		font-size: 15px;
+    		border: 1px solid black;
+    		width: 150px;
+		}
+	
+		#submit:hover {
+    		border: 1px solid white;
+    		background: red;
+    		box-shadow: 2px 2px 10px #777;
+		}
+		
+		.buttonholder{
+			text-align: center;
+		}
+		
+		#success{
+			text-align: center;
+			color: #33CC33;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 25px;
+		}
+		
+		#fail{
+			text-align: center;
+			color: red;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 25px;
+		}
+		
+	</style>
 	<script src = "jquery-1.11.3.min.js"></script>
 	<title>Registration</title>
 </head>
@@ -175,10 +247,10 @@
 								
 							)
 						);
-					echo "Registration successful. <a href='login.php'>Login</a>";
+					echo "<div id = \"success\">Registration successful.</div> <a href='login.php'>Login</a>";
 				}
 				catch(PDOException $e){
-					echo "An error occured. Click <a href='main.php'>here</a> to go back to main page.";
+					echo "<div id = \"fail\">An error occured. Click <a href='main.php'>here</a> to go back to main page.</div>";
 				}
 				//header('Location: main.php');
 				//exit();
@@ -196,43 +268,51 @@
 		*/
 		
 	?>
+	
+	<h2 id = "header" align = "center">Registration Form</h2>
+	
 	<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<label>Firstname: </label>
-		<input type = "text" name = "firstname" maxlength = '50'/>
 		<span class = "error">* <?php echo $firstnameErr;?></span>
-		<br><br>
+		<br>
+		<input type = "text" name = "firstname" maxlength = '50'/>
+		<br>
 		<label>Lastname: </label>
-		<input type = "text" name = "lastname" maxlength = '50'/>
 		<span class = "error">* <?php echo $lastnameErr;?></span>
-		<br><br>
+		<br>
+		<input type = "text" name = "lastname" maxlength = '50'/>
+		<br>
 		<label>Gender: </label>
 		<select name = "gender" id = "gender">
    			<option value = "male" >Male</option>
    			<option value = "female" >Female</option>
    		</select>
 		<span class = "error">* <?php echo $genderErr;?></span>
-   		<br><br>
+   		<br>
    		<label>Salutation: </label>
 		<select name = "salutation" id = "salutation">
 		</select>
 		<span class = "error">* <?php echo $salutationErr;?></span>
-   		<br><br>
+   		<br>
    		<label>Birthdate: </label>
+   		<span class = "error">* <?php echo $birthdateErr;?></span>
+   		<br>
    		<input type = "date" name = "birthdate">
-		<span class = "error">* <?php echo $birthdateErr;?></span>
-   		<br><br>
+   		<br>
    		<label>Username: </label>
+   		<span class = "error">* <?php echo $usernameErr;?></span>
+   		<br>
    		<input type = "text" name = "username" maxlength = '50'/>
-		<span class = "error">* <?php echo $usernameErr;?></span>
-   		<br><br>
+   		<br>
    		<label>Password: </label>
+   		<span class = "error">* <?php echo $passwordErr;?></span>
+   		<br>
    		<input type = "password" name = "password" maxlength = '50'>
-		<span class = "error">* <?php echo $passwordErr;?></span>
-   		<br><br>
+   		<br>
    		<label>About Me: </label>
 		<br>
    		<textarea name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
-   		<br><br>
+   		<br>
 		<?php
 			if (isset($_SESSION['accesslvl']) && !empty($_SESSION['accesslvl'])) {
 				if (strtolower($_SESSION['accesslvl']) == "admin") { // replace with if session logged in user is admin
@@ -258,9 +338,11 @@
 			}
 		?>
 		<br><br>
-		<label>* - required</label>
-		<br> <br>
-		<input type = "submit" value = "Submit"/> 
+		<label id = "required">* - required</label>
+		<br><br>
+		<div class="buttonholder">
+			<input id = "submit" type = "submit" value = "Submit"/>
+		</div>
 	</form>
 </body>
 </html>
