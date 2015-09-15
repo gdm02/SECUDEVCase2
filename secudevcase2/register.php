@@ -39,6 +39,10 @@
 			box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 		}
 		
+		input{
+			width: 370px;
+		}
+		
 		#required{
 			color: red;
 		}
