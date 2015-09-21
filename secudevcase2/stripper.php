@@ -5,7 +5,13 @@
 	            <abbr><address><blockquote><area><audio><video><img>
 	            <caption><table><tbody><td><tfoot><th><thead><tr>
 	            ';
-	
-		return strip_tags($var, $allowed);
+		return preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', 
+					strip_tags(trim($var), $allowed));
+	}
+	function clean_data($data) {
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
 	}
 ?>

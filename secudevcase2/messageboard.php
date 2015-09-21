@@ -1,3 +1,10 @@
+<?php 
+	include 'session.php';
+	include 'connect.php';
+	include 'stripper.php';
+	
+	$current_id = $_SESSION['id'];
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -61,12 +68,13 @@
 	    var newDiv = $('<div/>');
 	    
 	    var newForm = $('<form />', { 
+		    		'class': 'post-form',
 		    		action:'/editpost.php',
 		    		method:'POST' 
 			    })
 	    newForm.append('<input type="hidden" name="post_id" value="' + id + '" />');
 	    newForm.append(editableText);
-	    newForm.append('<input type="submit" value="Save Changes" />');
+	    newForm.append('<input type="submit" name="edit-post" value="Save Changes" />');
 
 	    newDiv.append(newForm);
 	    
@@ -93,7 +101,10 @@
 	}
 	
 	$(document).ready(function () {
+		var _cur_id = <?php echo json_encode($_SESSION['id']) ?>;
 	    $(".editpost").click(divClicked); //calls the function on button click
+	    
+	    	
 	});
 </script>
 
@@ -101,35 +112,26 @@
 <body>
 
 	<?php 
-	session_start();
-	if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
-	{
-		header("Location: /main.php"); /* Redirect browser */
-		exit();
-	}
-	
-	include 'connect.php';
-	include 'stripper.php';
 	
 	function showInputBox(){
-		echo 'Color:
-					<select id = "postcolor">
-					<option value = "black">Black</option>
-					<option value = "blue">Blue</option>
-					<option value = "red">Red</option>
-					<option value = "yellow">Yellow</option>
-					<option value = "green">Green</option>
-					</select>
-					Font:
-					<select id = "postfont">
-					<option value = "arial">Arial</option>
-					<option value = "times new roman">Times New Roman</option>
-					</select>
-					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
+// 		echo 'Color:
+// 					<select id = "postcolor">
+// 					<option value = "black">Black</option>
+// 					<option value = "blue">Blue</option>
+// 					<option value = "red">Red</option>
+// 					<option value = "yellow">Yellow</option>
+// 					<option value = "green">Green</option>
+// 					</select>
+// 					Font:
+// 					<select id = "postfont">
+// 					<option value = "arial">Arial</option>
+// 					<option value = "times new roman">Times New Roman</option>
+// 					</select>
+// 					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
 		
-		echo "<br><br><form method='POST' action='/submitpost.php'>"
+		echo "<br><br><form method='POST' class='post-form' action='/submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
-				."<br><input type='submit' value='Post' />"
+				."<br><input type='submit' name='submit-post' value='Post' />"
 						."</form><br>";
 	}
 	?>
@@ -151,8 +153,31 @@
 			$this -> total = $rs -> num_rows;
 		}
 		
-
-		//if($_SERVER['REQUEST_METHOD'] != 'POST'){
+		$submit_key = "submit-post";
+		$delete_key = "delete-post";
+		$edit_key = "edit-post";
+		
+		if($current_id != $_SESSION['id']){
+			header("Location: userreset.php"); /* Redirect browser */
+			// 				exit();
+		}
+// 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+// 			if($current_id == $_SESSION['id']){
+// 				if(isset($_POST[$submit_key]))
+// 					echo "submit submitted";
+// 				else if(isset($_POST[$delete_key]))
+// 					echo "delete submitted";
+// 				else if(isset($_POST[$edit_key]))
+// 					echo "edit submitted";
+// 				else 
+// 					echo "Invalid request.";
+// 			}
+// 			else{
+// 				header("Location: userreset.php"); /* Redirect browser */
+// 				exit();
+// 			}
+// 		}
+		
 			echo "<a href ='/editprofile.php'>Edit your profile</a> <br> <a href='/signout.php'>Logout</a><br><br>";
 			echo 
 			'User profile: <br><label>Firstname: </label>'.
@@ -203,9 +228,9 @@
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
 						echo '<td><button class="editpost">Edit</button></td>
-						<td><form action="/deletepost.php" method="POST">
+						<td><form class="post-form" action="/deletepost.php" method="POST">
 	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
-	    				<input type="submit" class="buttontype" value="Delete"/>
+	    				<input type="submit" value="Delete"/>
 	    				</form></td>';
 					}
 					
@@ -230,19 +255,6 @@
 			}
 		
 		
-		//}
-		
-// 		form has been submitted
-// 		else{
-// 			$query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
-// 					"VALUES(:acc_id,:content,CURDATE(), NOW())";
-		
-// 			$stmt = $db->prepare($query);
-// 			$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' =>  $_POST["post_content"]));
-		
-// 			header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"])); /* Redirect browser */
-// 			exit();
-// 		}
 	?>
 
 

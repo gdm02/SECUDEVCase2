@@ -1,21 +1,20 @@
 <?php
 include 'session.php';
 include 'connect.php';
+include 'validator.php';
 
-if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
-{
-	header("Location: /main.php"); /* Redirect browser */
-	exit();
-}
+$valid_id = validate_post_edit($db, $_POST['post_id']);
 
-$query = "DELETE FROM posts WHERE id = :id";
-
-try{
-	$stmt = $db->prepare($query);
-	$stmt->execute(array(':id' => $_POST['post_id']));
-}
-catch(PDOException $e){
-
+if($_SESSION['id'] == $valid_id) {
+	$query = "DELETE FROM posts WHERE id = :id";
+	
+	try{
+		$stmt = $db->prepare($query);
+		$stmt->execute(array(':id' => $_POST['post_id']));
+	}
+	catch(PDOException $e){
+	
+	}
 }
 header("Location: messageboard.php"); /* Redirect browser */
 exit();

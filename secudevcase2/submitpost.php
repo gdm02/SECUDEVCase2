@@ -2,11 +2,6 @@
 include 'session.php';
 include 'connect.php';
 
-if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
-{
-	header("Location: /main.php"); /* Redirect browser */
-	exit();
-}
 
 $query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
 							"VALUES(:acc_id,:content,CURDATE(), NOW())";

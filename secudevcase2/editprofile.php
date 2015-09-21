@@ -1,12 +1,8 @@
 <?php 
-	session_start();
+	include 'session.php';
 	include 'connect.php';
 	include 'stripper.php';
-	if(!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false)
-	{
-		header("Location: /main.php"); /* Redirect browser */
-		exit();
-	}
+	
 ?>
 <!DOCTYPE HTML>
 <html>

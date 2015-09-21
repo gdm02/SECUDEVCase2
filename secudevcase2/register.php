@@ -118,6 +118,8 @@
 	
 	<?php
 		include 'connect.php';
+		include 'validator.php';
+		
 		$firstname = $lastname = $gender = $salutation = $birthdate = $username = $password = $aboutme = $accesslvl = "";
 		$firstnameErr = $lastnameErr = $genderErr = $salutationErr = $birthdateErr = $usernameErr = $passwordErr = $aboutmeErr = $accesslvlErr = "";
 		
@@ -142,7 +144,7 @@
 				$valid = false;
 			} else {
 				if (preg_match("/^[a-zA-Z0-9 ]+$/", $_POST["firstname"])) {
-					$firstname = $_POST["firstname"];
+					$firstname = clean_data($_POST["firstname"]);
 				} else {
 					$firstnameErr = "Invalid input."; 
 					$valid = false;
@@ -154,7 +156,7 @@
 				$valid = false;
 			} else {
 				if (preg_match("/^[a-zA-Z0-9 ]+$/", $_POST["lastname"])) {
-					$lastname = $_POST["lastname"];
+					$lastname = clean_data($_POST["lastname"]);
 				} else {
 					$lastnameErr = "Invalid input.";
 					$valid = false;
@@ -189,13 +191,19 @@
 				$birthdateErr = "Birthdate must not be left blank.";
 				$valid = false;
 			} else {
-				$inputDate = date_create($_POST["birthdate"]);
-				$interval = $inputDate -> diff ($dateToday);
-				$age = $interval -> y;
-				if ($age >= 18) {
-					$birthdate = $_POST["birthdate"];
-				} else {
-					$birthdateErr = "You must be over 18 to register.";
+				try{
+					$inputDate = date_create($_POST["birthdate"]);
+					$interval = $inputDate -> diff ($dateToday);
+					$age = $interval -> y;
+					if ($age >= 18) {
+						$birthdate = $_POST["birthdate"];
+					} else {
+						$birthdateErr = "You must be over 18 to register.";
+						$valid = false;
+					}
+				}
+				catch(Exception $e){
+					$birthdateErr = "Invalid birthdate.";
 					$valid = false;
 				}
 			}
@@ -224,7 +232,7 @@
 				}
 			}
 			
-			$aboutme = $_POST["aboutme"];
+			$aboutme = clean_data($_POST["aboutme"]);
 			
 			if (!isset($_POST["accesslvl"])){
 				$accesslvlErr = "Access level required.";
@@ -261,15 +269,6 @@
 			}
 		}
 		
-		// To be added later, for security
-		/*
-		function test_input($data) {
-			$data = trim($data);
-			$data = stripslashes($data);
-			$data = htmlspecialchars($data);
-			return $data;
-		}
-		*/
 		
 	?>
 	

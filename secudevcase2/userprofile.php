@@ -26,7 +26,7 @@
 <body>
 
 <?php
-session_start();
+include 'session.php';
 include 'connect.php';
 if(isset($_REQUEST['userprofile']) && isset($_SESSION['signed_in']) && $_SESSION['signed_in'] = true)
 {
