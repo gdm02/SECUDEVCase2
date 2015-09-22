@@ -7,6 +7,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
 	<script src = "jquery-1.11.3.min.js"></script>
 	<title>Edit Profile</title>
 </head>
