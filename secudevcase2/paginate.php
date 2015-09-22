@@ -77,7 +77,7 @@ class paginate
  
  public function paginglink($query,$records_per_page)
  {
-        $self = $_SERVER['PHP_SELF'];
+        $self = htmlspecialchars($_SERVER['PHP_SELF']);
   
         $stmt = $this->db->prepare($query);
         $stmt->execute();
