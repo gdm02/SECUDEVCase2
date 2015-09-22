@@ -14,6 +14,46 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
 	<script src = "jquery-1.11.3.min.js"></script>
+	
+	<style>
+	
+		body {
+			background-color: lavender;
+		}
+		
+		textarea {
+   			resize: none;
+		}
+		
+		#header {
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 40px;
+		}
+		
+		#success{
+			text-align: center;
+			color: #33CC33;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 25px;
+		}
+		
+		#fail{
+			text-align: center;
+			color: red;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 25px;
+		}
+		
+		#required{
+			color: red;
+		}
+		
+		span{
+			color: red;
+		}
+	
+	</style>
+	
 	<title>Edit Profile</title>
 </head>
 <body>
@@ -171,52 +211,76 @@
 					$_SESSION['birthdate'] = $_POST['birthdate'];
 					$_SESSION['password'] = $_POST['password'];
 					$_SESSION['aboutme'] = $_POST['aboutme'];
-					echo "Profile updated. <a href='messageboard.php'> Back to message board.</a>";
+					echo "<div id = \"success\"> Profile updated. <a href='messageboard.php'> Back to message board.</a> </div>";
 				}
 				catch(PDOException $e){
-					echo "An error occured. Click <a href='main.php'>here</a> to go back to main page.";
+					echo "<div id = \"fail\">An error occured. Click <a href='main.php'>here</a> to go back to main page.</div>";
 				}
 				//header('Location: main.php');
 				//exit();
 			}
 		}
 	?>
-	<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-		<label>Firstname: </label>
-		<input type = "text" name = "firstname" maxlength = '50' value = "<?php echo $_SESSION['firstname']; ?>"/>
+	<h2 id = "header" align = "center">Edit Profile</h2>
+	<form class="form-horizontal" role="form" method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	<div class = "form-group">		
+		<label class="control-label col-sm-4">Firstname: </label>
+		<div class = "col-sm-4">
+		<input class = "form-control" type = "text" name = "firstname" maxlength = '50' value = "<?php echo $_SESSION['firstname']; ?>"/>
+		</div>
 		<span class = "error">* <?php echo $firstnameErr;?></span>
-		<br><br>
-		<label>Lastname: </label>
-		<input type = "text" name = "lastname" maxlength = '50' value = "<?php echo $_SESSION['lastname']; ?>"/>
+	</div>
+	<div class = "form-group">
+		<label class="control-label col-sm-4">Lastname: </label>
+		<div class = "col-sm-4">
+		<input class = "form-control" type = "text" name = "lastname" maxlength = '50' value = "<?php echo $_SESSION['lastname']; ?>"/>
+		</div>
 		<span class = "error">* <?php echo $lastnameErr;?></span>
-		<br><br>
-		<label>Gender: </label>
-		<select name = "gender" id = "gender" value = "<?php echo $_SESSION['gender']; ?>">
+	</div>
+	<div class = "form-group">
+		<label class="control-label col-sm-4">Gender: </label>
+		<div class = "col-sm-4 selectContainer">
+		<select class = "form-control" name = "gender" id = "gender" value = "<?php echo $_SESSION['gender']; ?>">
    			<option value = "male" >Male</option>
    			<option value = "female" >Female</option>
    		</select>
+   		</div>
 		<span class = "error">* <?php echo $genderErr;?></span>
-   		<br><br>
-   		<label>Salutation: </label>
-		<select name = "salutation" id = "salutation"/>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Salutation: </label>
+   		<div class = "col-sm-4 selectContainer">
+		<select class = "form-control" name = "salutation" id = "salutation">
 		</select>
+		</div>
 		<span class = "error">* <?php echo $salutationErr;?></span>
-   		<br><br>
-   		<label>Birthdate: </label>
-   		<input type = "date" name = "birthdate" value = "<?php echo $_SESSION['birthdate']; ?>">
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Birthdate: </label>
+   		<div class = "col-sm-4">
+   		<input class = "form-control" type = "date" name = "birthdate" value = "<?php echo $_SESSION['birthdate']; ?>">
+   		</div>
 		<span class = "error">* <?php echo $birthdateErr;?></span>
-   		<br><br>
-   		<label>Username: </label>
-		<?php echo $_SESSION['username']; ?>
-   		<br><br>
-   		<label>Password: </label>
-   		<input type = "password" name = "password" maxlength = '50' value = "<?php echo $_SESSION['password']; ?>"/>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Username: </label>
+   		<div class = "col-sm-4">
+		<label class = "form-control"> <?php echo $_SESSION['username']; ?> </label>
+		</div>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Password: </label>
+   		<div class = "col-sm-4">
+   		<input class = "form-control" type = "password" name = "password" maxlength = '50' value = "<?php echo $_SESSION['password']; ?>"/>
+   		</div>
 		<span class = "error">* <?php echo $passwordErr;?></span>
-   		<br><br>
-   		<label>About Me: </label>
-		<br>
-   		<textarea name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
-   		<br><br>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">About Me: </label>
+		<div class = "col-sm-4">
+   		<textarea class = "form-control" name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
+   		</div>
+   </div>
 		<?php
 			if (isset($_SESSION['accesslvl']) && !empty($_SESSION['accesslvl'])) {
 				if (strtolower($_SESSION['accesslvl']) == "admin") { // replace with if session logged in user is admin
@@ -240,10 +304,12 @@
 				';
 			}
 		?>
-		<br><br>
-		<label>* - required</label>
-		<br> <br>
-		<input type = "submit" value = "Submit"/> 
+		<div class = "form-group">
+		<label class="control-label col-sm-6" id = "required">* - required</label>
+	</div>
+		<div class="control-label col-sm-6">
+			<input class="btn btn-success" id = "submit" type = "submit" value = "Submit"/>
+		</div>
 	</form>
 </body>
 </html>
