@@ -9,7 +9,7 @@
 	
 	<style>
 	
-		body{
+		/* body{
 			background-color: #ADD6FF;
 		}
 		
@@ -59,17 +59,30 @@
 			text-align: center;
 		}
 		
-		#fail{
-			text-align: center;
-			color: red;
-			font-family: "Comic Sans MS", cursive, sans-serif;
-			font-size: 25px;
+		
+		
+		 */	
+		
+		body {
+			background-color: lavender;
+		}
+		
+		#header {
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 40px;
 		}
 		
 		#success{
 			text-align: center;
 			color: #33CC33;
-			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 25px;
+		}
+		
+		#fail{
+			text-align: center;
+			color: red;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 			font-size: 25px;
 		}
 		
@@ -85,7 +98,7 @@ session_start();
 
 include 'connect.php';
  
-echo "<div id = \"header\"> <h3>Sign in</h3> </div>";
+echo "<div id = \"header\" align = \"center\" > <h2>Sign in</h2> </div>";
  
 //first, check if the user is already signed in. If that is the case, there is no need to display this page
 if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
@@ -98,12 +111,20 @@ else
     {
         /*the form hasn't been posted yet, display it
           note that the action="" will cause the form to post to the same page it is on */
-        echo '<form method="post" action="">
-            Username: <br> <input type="text" name="user_name" />
-			<br>
-            Password: <br> <input type="password" name="user_pass">
-			<br><br>
-            <div class = "buttonholder"> <input id = "submit" type="submit" value="Sign in" /> </div>
+        echo '<form class="form-horizontal" role="form" method="post" action="">
+		<div class = "form-group">				
+            <label class="control-label col-sm-5">Username: </label>
+			<div class = "col-sm-2">		
+			<input class = "form-control" type="text" name="user_name" />
+			</div>
+		</div>
+		<div class = "form-group">			
+            <label class="control-label col-sm-5">Password: </label>
+			<div class = "col-sm-2">
+			<input class = "form-control" type="password" name="user_pass">
+			</div>
+		</div>			
+            <div align = "center"> <input class="btn btn-success" id = "submit" type="submit" value="Sign in" /> </div>
          </form>';
     }
     else

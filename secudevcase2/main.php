@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 <head>
-<style>
-
+	
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+<style>
 	
-	body {
-		background-color:lavander;
+	/* body {
+		background-color: lavender;
 	}
 	
 	#header {
 		font-family: "Comic Sans MS", cursive, sans-serif;
 		font-size: 30px;
-	}
-	
-	form {
-		display: inline-block;
-		width: 100px;
-		padding: 75px;
 	}
 	
 	#submit {
@@ -37,23 +32,40 @@
     	border: 2px solid white;
     	background: red;
     	box-shadow: 2px 2px 10px #777;
+	} */
+
+	#header {
+		font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+		font-size: 40px;
+	}
+
+	body {
+		background-color: lavender;
 	}
 	
+	form {
+		display: inline-block;
+		padding: 75px;
+	}
+
 </style>
-<meta charset="ISO-8859-1">
+
 <title>Main Page</title>
+
 </head>
 <body>
-	<div align = "center" id = "header">
-		<h2> Welcome to Main Page! </h2>
+<div align = "center">
+	<div>
+		<h2 id = "header"> Welcome to Main Page! </h2>
 	</div>
-	<div align = "center">
+	<div>
 		<form action="/register.php" method="get">
-		    <input id = "submit" type="submit" value="Register"/>
+		    <input class="btn btn-primary" id = "submit" type="submit" value="Register"/>
 		</form>
 		<form action="/login.php" method="get">
-		    <input id = "submit" type="submit" value="Login"  />
+		    <input class="btn btn-primary" id = "submit" type="submit" value="Login"  />
 		</form>
 	</div>
+</div>
 </body>
 </html>

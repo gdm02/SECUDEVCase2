@@ -4,17 +4,18 @@
 	include 'stripper.php';
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang = "en">
 <head>
 
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
 	
 	<style>
 		
-		body{
+		/* body{
 			background-color: #ADD6FF;
 		}
 		
@@ -23,9 +24,7 @@
 			font-size: 30px;
 		}
 		
-		span{
-			color: red;
-		}
+		
 		
 		form {
 			background-color: #94FF94;
@@ -49,9 +48,7 @@
 			width: 370px;
 		}
 		
-		#required{
-			color: red;
-		}
+		
 		
 		#submit {
 			background-color: #1975FF;
@@ -72,19 +69,41 @@
 		.buttonholder{
 			text-align: center;
 		}
+		 */
+		
+		body {
+			background-color: lavender;
+		}
+		
+		textarea {
+   			resize: none;
+		}
+		
+		#header {
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 40px;
+		}
 		
 		#success{
 			text-align: center;
 			color: #33CC33;
-			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 			font-size: 25px;
 		}
 		
 		#fail{
 			text-align: center;
 			color: red;
-			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 			font-size: 25px;
+		}
+		
+		#required{
+			color: red;
+		}
+		
+		span{
+			color: red;
 		}
 		
 	</style>
@@ -279,49 +298,66 @@
 	?>
 	
 	<h2 id = "header" align = "center">Registration Form</h2>
-	
-	<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-		<label>Firstname: </label>
+	<form class="form-horizontal" role="form" method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	<div class = "form-group">	
+		<label class="control-label col-sm-4">Firstname: </label>
 		<span class = "error">* <?php echo $firstnameErr;?></span>
-		<br>
-		<input type = "text" name = "firstname" maxlength = '50'/>
-		<br>
-		<label>Lastname: </label>
+		<div class = "col-sm-4">
+		<input class = "form-control" type = "text" name = "firstname" maxlength = '50' placeholder = "Enter first name"/>
+		</div>
+	</div>
+	<div class = "form-group">	
+		<label class="control-label col-sm-4">Lastname: </label>
 		<span class = "error">* <?php echo $lastnameErr;?></span>
-		<br>
-		<input type = "text" name = "lastname" maxlength = '50'/>
-		<br>
-		<label>Gender: </label>
-		<select name = "gender" id = "gender">
+		<div class = "col-sm-4">
+		<input class = "form-control" type = "text" name = "lastname" maxlength = '50' placeholder = "Enter last name"/>
+		</div>
+	</div>
+	<div class = "form-group">
+		<label class="control-label col-sm-4">Gender: </label>
+		<div class = "col-sm-4 selectContainer">
+		<select class = "form-control" name = "gender" id = "gender">
    			<option value = "male" >Male</option>
    			<option value = "female" >Female</option>
    		</select>
+   		</div>
 		<span class = "error">* <?php echo $genderErr;?></span>
-   		<br>
-   		<label>Salutation: </label>
-		<select name = "salutation" id = "salutation">
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Salutation: </label>
+   		<div class = "col-sm-4 selectContainer">
+		<select class = "form-control" name = "salutation" id = "salutation">
 		</select>
+		</div>
 		<span class = "error">* <?php echo $salutationErr;?></span>
-   		<br>
-   		<label>Birthdate: </label>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Birthdate: </label>
    		<span class = "error">* <?php echo $birthdateErr;?></span>
-   		<br>
-   		<input type = "date" name = "birthdate">
-   		<br>
-   		<label>Username: </label>
+   		<div class = "col-sm-4">
+   		<input class = "form-control" type = "date" name = "birthdate">
+   		</div>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Username: </label>
    		<span class = "error">* <?php echo $usernameErr;?></span>
-   		<br>
-   		<input type = "text" name = "username" maxlength = '50'/>
-   		<br>
-   		<label>Password: </label>
+   		<div class = "col-sm-4">
+   		<input class = "form-control" type = "text" name = "username" maxlength = '50' placeholder = "Enter username"/>
+   		</div>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">Password: </label>
    		<span class = "error">* <?php echo $passwordErr;?></span>
-   		<br>
-   		<input type = "password" name = "password" maxlength = '50'>
-   		<br>
-   		<label>About Me: </label>
-		<br>
-   		<textarea name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255"></textarea>
-   		<br>
+   		<div class = "col-sm-4">
+   		<input class = "form-control" type = "password" name = "password" maxlength = '50' placeholder = "Enter password">
+   		</div>
+   	</div>
+   	<div class = "form-group">
+   		<label class="control-label col-sm-4">About Me: </label>
+		<div class = "col-sm-4">
+   		<textarea class = "form-control" name ="aboutme" id = "aboutme" rows = "4" cols = "50" data-parsley-maxlength = "255" placeholder = "Type something about yourself"></textarea>
+   		</div>
+   	</div>
 		<?php
 			if (isset($_SESSION['accesslvl']) && !empty($_SESSION['accesslvl'])) {
 				if (strtolower($_SESSION['accesslvl']) == "admin") { // replace with if session logged in user is admin
@@ -346,11 +382,11 @@
 				';
 			}
 		?>
-		<br><br>
-		<label id = "required">* - required</label>
-		<br><br>
-		<div class="buttonholder">
-			<input id = "submit" type = "submit" value = "Submit"/>
+	<div class = "form-group">
+		<label class="control-label col-sm-6" id = "required">* - required</label>
+	</div>
+		<div class="control-label col-sm-6">
+			<input class="btn btn-success" id = "submit" type = "submit" value = "Submit"/>
 		</div>
 	</form>
 </body>
