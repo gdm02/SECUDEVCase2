@@ -57,7 +57,7 @@ class paginate
          {
                 ?>
                 <tr>
-                <td>Nothing here...</td>
+                <td>No posts.</td>
                 </tr>
                 <?php
          }
@@ -77,7 +77,6 @@ class paginate
  
  public function paginglink($query,$records_per_page)
  {
-  
         $self = $_SERVER['PHP_SELF'];
   
         $stmt = $this->db->prepare($query);

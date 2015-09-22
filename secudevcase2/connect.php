@@ -15,6 +15,6 @@
 		exit();
 	}
 	
-	include 'paginate.php';
+	include_once 'paginate.php';
 	$paginate = new paginate($db);
 ?>
