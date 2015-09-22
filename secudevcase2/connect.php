@@ -14,4 +14,7 @@
 		header("Location: error.php"); /* Redirect browser */
 		exit();
 	}
+	
+	include 'paginate.php';
+	$paginate = new paginate($db);
 ?>

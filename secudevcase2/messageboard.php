@@ -137,14 +137,7 @@
 	?>
 
 	<?php
-		class Paginator {
-			private $_conn; //sql connection
-			private $_limit;
-			private $_page;
-			private $_query;
-			private $_total;
-		}
-		
+		/*
 		function __construct ( $conn, $query ) {
 			$this->_conn = $conn;
 			$this->_query = $query;
@@ -156,7 +149,7 @@
 		$submit_key = "submit-post";
 		$delete_key = "delete-post";
 		$edit_key = "edit-post";
-		
+		*/
 		if($current_id != $_SESSION['id']){
 			header("Location: userreset.php"); /* Redirect browser */
 			// 				exit();
@@ -203,14 +196,64 @@
 					.'<br> <br>';
 			
 			showInputBox();
-		
-			$stmt = $db->query('SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
+			
+			$sql = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
 								FROM posts 
 								INNER JOIN accounts
 								ON posts.acc_id = accounts.id 
-								ORDER BY last_edited DESC');
+								ORDER BY last_edited DESC
+								LIMIT :limit';
+			$limit = 10;
+			
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+			
+			echo "<table align='center' width='50%' border='1'>
+				<tr>
+					<td>
+						<table align='center' border='1' width='100%' height='100%' id='data'>";
+						//$query = "SELECT * FROM posts";       
+						$query = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
+								FROM posts 
+								INNER JOIN accounts
+								ON posts.acc_id = accounts.id 
+								ORDER BY last_edited DESC';
+						$records_per_page=10;
+						$newquery = $paginate->paging($query,$records_per_page);
+						$paginate->dataview($newquery);
+						$paginate->paginglink($query,$records_per_page);  
+						echo "
+						</table>
+					</td>
+				</tr>
+			</table>";
+			/*
+			if($stmt->rowCount() > 0) {
+				echo "<table align='center' width='50%' border='1'>
+				<tr>
+					<td>
+						<table align='center' border='1' width='100%' height='100%' id='data'>";
+						$query = "SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
+								FROM posts 
+								INNER JOIN accounts
+								ON posts.acc_id = accounts.id 
+								ORDER BY last_edited DESC";       
+						$records_per_page=10;
+						$newquery = $paginate->paging($query,$records_per_page);
+						$paginate->dataview($newquery);
+						$paginate->paginglink($query,$records_per_page);  
+						echo "
+						</table>
+					</td>
+				</tr>
+			</table>";
+			} else {
+				echo "No posts to show. <br>";
+			}
+			*/
+			/*
 			if($stmt->rowCount() > 0){
 				foreach($results as $key=>$row) {
 					echo "<div class='post-container-";
@@ -253,7 +296,7 @@
 			else{
 				echo "No posts to show. <br>";
 			}
-		
+			*/
 		
 	?>
 
