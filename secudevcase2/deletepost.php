@@ -5,7 +5,7 @@ include 'validator.php';
 
 $valid_id = validate_post_edit($db, $_POST['post_id']);
 
-if($_SESSION['id'] == $valid_id) {
+if($_SESSION['id'] == $valid_id || $_SESSION['accesslvl'] == "admin") {
 	$query = "DELETE FROM posts WHERE id = :id";
 	
 	try{
