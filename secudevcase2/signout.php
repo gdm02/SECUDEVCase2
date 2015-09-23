@@ -8,7 +8,7 @@
 	else{
 		session_destroy();
 		echo "You have been logged out.";
-		header("Location: /main.php"); /* Redirect browser */
+		header("Location: ./main.php"); /* Redirect browser */
 		exit();
 	}
 ?>

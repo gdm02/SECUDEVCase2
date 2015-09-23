@@ -59,10 +59,10 @@
 		<h2 id = "header"> Welcome to Main Page! </h2>
 	</div>
 	<div>
-		<form action="/register.php" method="get">
+		<form action="./register.php" method="get">
 		    <input class="btn btn-primary" id = "submit" type="submit" value="Register"/>
 		</form>
-		<form action="/login.php" method="get">
+		<form action="./login.php" method="get">
 		    <input class="btn btn-primary" id = "submit" type="submit" value="Login"  />
 		</form>
 	</div>

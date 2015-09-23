@@ -103,7 +103,7 @@ echo "<div id = \"header\" align = \"center\" > <h2>Sign in</h2> </div>";
 //first, check if the user is already signed in. If that is the case, there is no need to display this page
 if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
-    echo '<div id = "success">You are already signed in, you can <a href="/signout.php">sign out</a> if you want.</div>';
+    echo '<div id = "success">You are already signed in, you can <a href="./signout.php">sign out</a> if you want.</div>';
 }
 else
 {

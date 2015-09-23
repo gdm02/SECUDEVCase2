@@ -69,7 +69,7 @@
 	    
 	    var newForm = $('<form />', { 
 		    		'class': 'post-form',
-		    		action:'/editpost.php',
+		    		action:'./editpost.php',
 		    		method:'POST' 
 			    })
 	    newForm.append('<input type="hidden" name="post_id" value="' + id + '" />');
@@ -129,7 +129,7 @@
 // 					</select>
 // 					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
 		
-		echo "<br><br><form method='POST' class='post-form' action='/submitpost.php'>"
+		echo "<br><br><form method='POST' class='post-form' action='./submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
 				."<br><input type='submit' name='submit-post' value='Post' />"
 						."</form><br>";
@@ -171,7 +171,7 @@
 // 			}
 // 		}
 		
-			echo "<a href ='/editprofile.php'>Edit your profile</a> <br> <a href='/signout.php'>Logout</a><br><br>";
+			echo "<a href ='./editprofile.php'>Edit your profile</a> <br> <a href='./signout.php'>Logout</a><br><br>";
 			echo 
 			'User profile: <br><label>Firstname: </label>'.
 					$_SESSION["firstname"]
