@@ -8,10 +8,16 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
 	<title>Global Message Boards</title>
 	<style>
 	
-		body{
+		/* body{
 			background-color: #ADD6FF;
 		}
 	
@@ -37,7 +43,7 @@
 		}
 		#noborder {
 			border: 0;
-		}
+		} */
 		
 		div, textarea, table, td, th, code, pre, samp {
 	word-wrap: break-word;
@@ -171,7 +177,7 @@
 // 			}
 // 		}
 		
-			echo "<a href ='./editprofile.php'>Edit your profile</a> <br> <a href='./signout.php'>Logout</a><br><br>";
+			echo "<div class = \"row\"> <div class=\"col-sm-4\"> <a href ='./editprofile.php'>Edit your profile</a> <br> <a href='./signout.php'>Logout</a><br><br>";
 			echo 
 			'User profile: <br><label>Firstname: </label>'.
 					$_SESSION["firstname"]
@@ -192,8 +198,8 @@
 					$_SESSION["birthdate"]
 					.'<br>
 					<label>About Me: </label>'.
-					$_SESSION["aboutme"]
-					.'<br> <br>';
+					clean_data($_SESSION["aboutme"])
+					.'<br> <br> </div> ';
 			
 			showInputBox();
 			
@@ -210,7 +216,7 @@
 			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			
-			echo "<table align='center' width='50%' border='1'>
+			echo "<div class=\"table-responsive\"> <table class=\"table table-striped\" align='center' width='50%' border='1'>
 				<tr>
 					<td>
 						<table align='center' border='1' width='100%' height='100%' id='data'>";
@@ -228,7 +234,9 @@
 						</table>
 					</td>
 				</tr>
-			</table>";
+			</table>
+	    	</div>	
+	    	</div>";
 			/*
 			if($stmt->rowCount() > 0) {
 				echo "<table align='center' width='50%' border='1'>
