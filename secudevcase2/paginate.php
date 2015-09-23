@@ -26,12 +26,12 @@ class paginate
 					echo '<table border = "1" style = "width:100%">
 					<tr>';
 					echo 
-					"<td> <a href='/userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
+					"<td> <a href='./userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
 						echo '<td><button class="editpost">Edit</button></td>
-						<td><form class="post-form" action="/deletepost.php" method="POST">
+						<td><form class="post-form" action="./deletepost.php" method="POST">
 	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
 	    				<input type="submit" value="Delete"/>
 	    				</form></td>';
@@ -39,7 +39,7 @@ class paginate
 					
 					echo "</tr>
 					<tr>
-					<td><a href='/userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
+					<td><a href='./userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
 					<td colspan="3">
 					
 					<div class = "textpost" id="'. $row['id'] .'">'. strip($row['content']) . '</div>
