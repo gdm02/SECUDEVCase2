@@ -43,17 +43,41 @@
 		}
 		#noborder {
 			border: 0;
-		} */
+		} 
 		
 		div, textarea, table, td, th, code, pre, samp {
-	word-wrap: break-word;
-}
-.left {
-    float: left;
-}
-.w50 {
-    width: 50%;
-}
+			word-wrap: break-word;
+		}
+		.left {
+   			float: left;
+		}
+		.w50 {
+    		width: 50%;
+		} */
+		
+		body{
+			background-color: lavender;
+		}
+		
+		label{
+			font-size: 18px;
+		}
+		
+		.maint{
+			text-align: center;
+			width: 90%;
+		}
+		
+		td {
+			padding: 12px;
+		}
+		
+		textarea {
+   			resize: none;
+   			width: 90%;
+		}
+		
+		
 
 	</style>
 <script src = "jquery-1.11.3.min.js"></script>
@@ -135,10 +159,10 @@
 // 					</select>
 // 					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
 		
-		echo "<br><br><form method='POST' class='post-form' action='./submitpost.php'>"
+		echo "<td><form method='POST' class='post-form' action='./submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
-				."<br><input type='submit' name='submit-post' value='Post' />"
-						."</form><br>";
+				."<br><input class=\"btn btn-success\" type='submit' name='submit-post' value='Post' />"
+						."</form> </td>";
 	}
 	?>
 
@@ -177,31 +201,38 @@
 // 			}
 // 		}
 		
-			echo "<div class = \"row\"> <div class=\"col-sm-4\"> <a href ='./editprofile.php'>Edit your profile</a> <br> <a href='./signout.php'>Logout</a><br><br>";
+			echo "<table class = \"maint\"><tr><td valign=\"top\" rowspan=\"2\">
+				<div class=\"btn-group\">
+				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
+				<button type=\"button\" class=\"btn btn-danger\" onclick = \"location.href ='./signout.php';\">Logout</button>
+				 </div>";
 			echo 
-			'User profile: <br><label>Firstname: </label>'.
+					'<h3 class="text-info">User Info: </h3>
+					<label class="text-info">Firstname: </label>'.
 					$_SESSION["firstname"]
 					.'<br>
-					<label>Surname: </label>'.
+					<label class="text-info">Surname: </label>'.
 					$_SESSION["lastname"]
 					.'<br>
-					<label>Gender: </label>'.
+					<label class="text-info">Gender: </label>'.
 					$_SESSION["gender"]
 					.'<br>
-					<label>Date Joined:</label>'.
+					<label class="text-info">Date Joined:</label>'.
 					$_SESSION["joindate"]
 					.'<br>
-					<label>Salutation:</label>'.
+					<label class="text-info">Salutation:</label>'.
 					$_SESSION["salutation"]
 					.'<br>
-					<label>Birthdate: </label>'.
+					<label class="text-info">Birthdate: </label>'.
 					$_SESSION["birthdate"]
 					.'<br>
-					<label>About Me: </label>'.
+					<label class="text-info">About Me: </label>'.
 					clean_data($_SESSION["aboutme"])
-					.'<br> <br> </div> ';
+					.'<br> <br> </td>';
 			
 			showInputBox();
+			
+			echo " </tr>";
 			
 			$sql = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
 								FROM posts 
@@ -216,7 +247,7 @@
 			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			
-			echo "<div class=\"table-responsive\"> <table class=\"table table-striped\" align='center' width='50%' border='1'>
+			echo "<td> <table class=\"table table-bordered\" align='center' width='50%'>
 				<tr>
 					<td>
 						<table align='center' border='1' width='100%' height='100%' id='data'>";
@@ -235,8 +266,8 @@
 					</td>
 				</tr>
 			</table>
-	    	</div>	
-	    	</div>";
+			</td>
+	    	</table>";
 			/*
 			if($stmt->rowCount() > 0) {
 				echo "<table align='center' width='50%' border='1'>
