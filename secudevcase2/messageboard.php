@@ -136,25 +136,27 @@
 		var logicValues = ['AND', 'OR'];
 		var field_count = 0;
 	    $(".editpost").click(divClicked); //calls the function on button click
-
+  
 	    $(document).on('change','.select_field', function() {
 	       	//alert("here");
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
-	        $(".search-form input#" + id + "[type='text']").attr("name", val);
+	        alert(val);
+	        alert(id);
+	        $(".search-form input#" + id + " [type='text']").attr("name", val).attr("some", "why");
 	    });
 
 	    $(document).on('change','.logic_field', function() {
 	       	//alert("here");
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
-	        $(".search-form input#" + id + "[type='hidden']").attr("name", val);
+	        $(".search-form input#" + id + "[type='hidden']").attr("name", "logic" + id).attr("value", val);
 	        
 	    });
 	    
 	    $("#add-field").click(function(){
 		    //add logic field
-		    $("<input type='hidden' value='" + val + "' />")
+		    $("<input type='hidden' value='' />")
 	        .attr("id", "" + field_count)
 	        .attr("name", "")
 	        .insertBefore(".search-form input[type=submit]");
