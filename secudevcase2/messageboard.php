@@ -140,7 +140,14 @@
 	    $(document).on('change','.select_field', function() {
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
-	        $(".search-form input:text[id='" + id + "']").attr("name", val);
+	        $(".search-form input:text[id='" + id + "']").attr("name", val + "" + id);
+	       // var input = $(".search-form input#" + id);
+	        
+			//if(val == "Username")
+			//	input.attr("type","text");
+	        //else if(val == "Date")
+	        //	input.attr("type","date");
+	        
 	    });
 
 	    $(document).on('change','.logic_field', function() {
@@ -181,10 +188,10 @@
 	    	});
 	    	logicSelection.insertBefore(".search-form input[type=submit]");
 	    	$("<br>").insertBefore(".search-form input[type=submit]");
-	    	
-	   		field_count++;
 
-	   		//newSelection.find('option[value="Date"]').prop('selected', true);
+	   		field_count++;
+	    	$(".search-form input[name=parameter-count]").attr("value",field_count);
+	   		newSelection.find('option[value="Date"]').prop('selected', true);
 	   		//$('.select_field0 option:eq(1)').prop('selected', true)
 		   	});
 	    
@@ -210,6 +217,7 @@
     			
     			<form method='POST' class='search-form' action='./searchpost.php'>"
 				."<textarea name='search_box' rows='1' cols = '50'/></textarea>"
+				."<input name='parameter-count' type='hidden' value='0'>"
 				."<br><input class=\"btn btn-success\" type='submit' name='search-post' value='Search' />"
 						."</form> 
 				<button id='add-field'>Add search field</button> 
@@ -302,6 +310,7 @@
 								INNER JOIN accounts
 								ON posts.acc_id = accounts.id ' . $_SESSION['search-details'] . 
 								' ORDER BY last_edited DESC';
+						echo $query;
 						//$_SESSION['search-details'] = "";
 						
 						$records_per_page=10;
