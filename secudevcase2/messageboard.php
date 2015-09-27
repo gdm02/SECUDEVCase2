@@ -138,16 +138,12 @@
 	    $(".editpost").click(divClicked); //calls the function on button click
   
 	    $(document).on('change','.select_field', function() {
-	       	//alert("here");
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
-	        alert(val);
-	        alert(id);
-	        $(".search-form input#" + id + " [type='text']").attr("name", val).attr("some", "why");
+	        $(".search-form input:text[id='" + id + "']").attr("name", val);
 	    });
 
 	    $(document).on('change','.logic_field', function() {
-	       	//alert("here");
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
 	        $(".search-form input#" + id + "[type='hidden']").attr("name", "logic" + id).attr("value", val);
@@ -177,13 +173,13 @@
 	    	newSelection.insertBefore(".search-form input[type=submit]");
 
 	    	//append detail selector
-			newSelection = $("<select class='logic_field' id='" + field_count + "' />");
+			var logicSelection = $("<select class='logic_field' id='" + field_count + "' />");
 	    	$.each(logicValues, function(key, value) {   
-	    	     newSelection
+	    		logicSelection
 	    	     	.append($('<option>', { value : key })
 	    	        .text(value))  
 	    	});
-	    	newSelection.insertBefore(".search-form input[type=submit]");
+	    	logicSelection.insertBefore(".search-form input[type=submit]");
 	    	$("<br>").insertBefore(".search-form input[type=submit]");
 	    	
 	   		field_count++;
