@@ -132,7 +132,27 @@
 	
 	$(document).ready(function () {
 		var _cur_id = <?php echo json_encode($_SESSION['id']) ?>;
+		var selectValues = ['Username','Date'];
+		var field_count = 0;
 	    $(".editpost").click(divClicked); //calls the function on button click
+	    $("#add-field").click(function(){
+	    	$("<input type='text' value='' />")
+	        .attr("id", "field" + field_count)
+	        .attr("name", "")
+	        .insertBefore(".search-form input[type=submit]");
+
+			var newSelection = $("<select id='select_field" + field_count + "' />");
+	    	$.each(selectValues, function(key, value) {   
+	    	     newSelection
+	    	     	.append($('<option>', { value : key })
+	    	        .text(value));  
+	    	});
+	    	newSelection.insertBefore(".search-form input[type=submit]");
+	    	$("<br>").insertBefore(".search-form input[type=submit]");
+	   		field_count++;
+	   		
+		   	});
+	    	
 	    
 	    	
 	});
@@ -150,10 +170,15 @@
 						."</form> </td>";
 	}
 	function showSearchBox(){
-		echo  "<td><form method='POST' class='search-form' action='./searchpost.php'>"
+		echo  "<td>
+    			
+    			<form method='POST' class='search-form' action='./searchpost.php'>"
 				."<textarea name='search_box' rows='1' cols = '50'/></textarea>"
 				."<br><input class=\"btn btn-success\" type='submit' name='search-post' value='Search' />"
-						."</form> </td>";
+						."</form> 
+				<button id='add-field'>Add search field</button> 
+   					
+   			</td>";
 	
 	}
 	
