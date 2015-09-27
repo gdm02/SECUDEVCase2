@@ -129,29 +129,67 @@
 	    viewableText.html(html);
 	    target.replaceWith(viewableText);
 	}
-	
+    
 	$(document).ready(function () {
 		var _cur_id = <?php echo json_encode($_SESSION['id']) ?>;
 		var selectValues = ['Username','Date'];
+		var logicValues = ['AND', 'OR'];
 		var field_count = 0;
 	    $(".editpost").click(divClicked); //calls the function on button click
+
+	    $(document).on('change','.select_field', function() {
+	       	//alert("here");
+	        var id = $(this).attr("id");
+	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
+	        $(".search-form input#" + id + "[type='text']").attr("name", val);
+	    });
+
+	    $(document).on('change','.logic_field', function() {
+	       	//alert("here");
+	        var id = $(this).attr("id");
+	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
+	        $(".search-form input#" + id + "[type='hidden']").attr("name", val);
+	        
+	    });
+	    
 	    $("#add-field").click(function(){
+		    //add logic field
+		    $("<input type='hidden' value='" + val + "' />")
+	        .attr("id", "" + field_count)
+	        .attr("name", "")
+	        .insertBefore(".search-form input[type=submit]");
+		    
+		    //add input field
 	    	$("<input type='text' value='' />")
-	        .attr("id", "field" + field_count)
+	        .attr("id", "" + field_count)
 	        .attr("name", "")
 	        .insertBefore(".search-form input[type=submit]");
 
-			var newSelection = $("<select id='select_field" + field_count + "' />");
+			//append detail selector
+			var newSelection = $("<select class='select_field' id='" + field_count + "' />");
 	    	$.each(selectValues, function(key, value) {   
 	    	     newSelection
 	    	     	.append($('<option>', { value : key })
-	    	        .text(value));  
+	    	        .text(value))  
+	    	});
+	    	newSelection.insertBefore(".search-form input[type=submit]");
+
+	    	//append detail selector
+			newSelection = $("<select class='logic_field' id='" + field_count + "' />");
+	    	$.each(logicValues, function(key, value) {   
+	    	     newSelection
+	    	     	.append($('<option>', { value : key })
+	    	        .text(value))  
 	    	});
 	    	newSelection.insertBefore(".search-form input[type=submit]");
 	    	$("<br>").insertBefore(".search-form input[type=submit]");
+	    	
 	   		field_count++;
-	   		
+
+	   		//newSelection.find('option[value="Date"]').prop('selected', true);
+	   		//$('.select_field0 option:eq(1)').prop('selected', true)
 		   	});
+	    
 	    	
 	    
 	    	
