@@ -30,7 +30,7 @@ if($count > 0){
 		$param = trim($_POST[$condition . $x]);
 		switch($condition){
 			case "Username": 
-				$added .= " username LIKE '%". $param . "%'"; 
+				$added .= " username LIKE '". $param . "'"; 
 				break;
 			case "Date": 
 				$param = str_replace('"', "", $param);
