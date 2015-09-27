@@ -144,42 +144,20 @@
 	<?php 
 	
 	function showInputBox(){
-// 		echo 'Color:
-// 					<select id = "postcolor">
-// 					<option value = "black">Black</option>
-// 					<option value = "blue">Blue</option>
-// 					<option value = "red">Red</option>
-// 					<option value = "yellow">Yellow</option>
-// 					<option value = "green">Green</option>
-// 					</select>
-// 					Font:
-// 					<select id = "postfont">
-// 					<option value = "arial">Arial</option>
-// 					<option value = "times new roman">Times New Roman</option>
-// 					</select>
-// 					Font Size: <input id = "postfontsize" type = "number" min = "12" max = "14" value = "12">';
-		
 		echo "<td><form method='POST' class='post-form' action='./submitpost.php'>"
 				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
 				."<br><input class=\"btn btn-success\" type='submit' name='submit-post' value='Post' />"
 						."</form> </td>";
 	}
-	?>
-
-	<?php
-		/*
-		function __construct ( $conn, $query ) {
-			$this->_conn = $conn;
-			$this->_query = $query;
-			
-			$rs = $this -> _conn -> query ( $this -> _query );
-			$this -> total = $rs -> num_rows;
-		}
+	function showSearchBox(){
+		echo  "<td><form method='POST' class='search-form' action='./searchpost.php'>"
+				."<textarea name='search_box' rows='1' cols = '50'/></textarea>"
+				."<br><input class=\"btn btn-success\" type='submit' name='search-post' value='Search' />"
+						."</form> </td>";
+	
+	}
+	
 		
-		$submit_key = "submit-post";
-		$delete_key = "delete-post";
-		$edit_key = "edit-post";
-		*/
 		if($current_id != $_SESSION['id']){
 			header("Location: userreset.php"); /* Redirect browser */
 			// 				exit();
@@ -230,22 +208,28 @@
 					clean_data($_SESSION["aboutme"])
 					.'<br> <br> </td>';
 			
+			showSearchBox();
 			showInputBox();
 			
 			echo " </tr>";
 			
-			$sql = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
-								FROM posts 
-								INNER JOIN accounts
-								ON posts.acc_id = accounts.id 
-								ORDER BY last_edited DESC
-								LIMIT :limit';
-			$limit = 10;
+			if(!isset($_SESSION['search-details']))
+				$_SESSION['search-details'] = "";
 			
-			$stmt = $db->prepare($sql);
-			$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-			$stmt->execute();
-			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// 			$sql = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
+// 								FROM posts  
+// 								INNER JOIN accounts
+// 								ON posts.acc_id = accounts.id 
+// 								ORDER BY last_edited DESC
+// 								LIMIT :limit';
+// 			echo $sql;
+			
+// 			$limit = 10;
+			
+// 			$stmt = $db->prepare($sql);
+// 			$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+// 			$stmt->execute();
+// 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			
 			echo "<td> <table class=\"table table-bordered\" align='center' width='50%'>
 				<tr>
@@ -255,8 +239,10 @@
 						$query = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
 								FROM posts 
 								INNER JOIN accounts
-								ON posts.acc_id = accounts.id 
-								ORDER BY last_edited DESC';
+								ON posts.acc_id = accounts.id ' . $_SESSION['search-details'] . 
+								' ORDER BY last_edited DESC';
+						//$_SESSION['search-details'] = "";
+						
 						$records_per_page=10;
 						$newquery = $paginate->paging($query,$records_per_page);
 						$paginate->dataview($newquery);
@@ -292,50 +278,7 @@
 				echo "No posts to show. <br>";
 			}
 			*/
-			/*
-			if($stmt->rowCount() > 0){
-				foreach($results as $key=>$row) {
-					echo "<div class='post-container-";
-					if($key % 2 == 0)
-						echo "even";
-					else
-						echo "odd";
-					echo "'>";
-					
-					echo '<table border = "1" style = "width:100%">
-					<tr>';
-					echo 
-					"<td> <a href='/userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
-					<td>Date Posted: ' .$row['postdate'] . '</td>';
-					
-					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
-						echo '<td><button class="editpost">Edit</button></td>
-						<td><form class="post-form" action="/deletepost.php" method="POST">
-	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
-	    				<input type="submit" value="Delete"/>
-	    				</form></td>';
-					}
-					
-					echo "</tr>
-					<tr>
-					<td><a href='/userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
-					<td colspan="3">
-					
-					<div class = "textpost" id="'. $row['id'] .'">'. strip($row['content']) . '</div>
-					</td>
-					</tr>
-					<tr>
-					<td>Date Joined:'  . $_SESSION['joindate'] . '</td>
-					<td colspan="3">Last Edited: ' . $row['last_edited'] . '</td>
-					</tr>
-					</table>';
-					echo "</div>";
-				}
-			}
-			else{
-				echo "No posts to show. <br>";
-			}
-			*/
+			
 		
 	?>
 

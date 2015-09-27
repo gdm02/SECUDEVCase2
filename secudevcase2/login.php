@@ -193,6 +193,9 @@ else
 	                        $_SESSION['aboutme'] = $row['about'];
 	                        $_SESSION['accesslvl'] = $row['level'];
 	                        $_SESSION['joindate'] = $row['joindate'];
+	                        
+	                        //no search details by default
+	                        $_SESSION['search-details'] = "";
 	                    }
 	                    
 	                    echo '<div id = "success">Welcome, ' . $_SESSION['firstname'] . '. <a href="messageboard.php">Proceed to the forum overview</a>.</div>';
