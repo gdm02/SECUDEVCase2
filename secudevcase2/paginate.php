@@ -10,6 +10,7 @@ class paginate
  
      public function dataview($query)
      {
+         try {
          $stmt = $this->db->prepare($query);
          $stmt->execute();
 		 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,6 +61,10 @@ class paginate
                 <td>No posts.</td>
                 </tr>
                 <?php
+         }
+         } catch (PDOException $e) {
+             header("Location: error.php");
+             exit();       
          }
   
  }
