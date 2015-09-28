@@ -65,7 +65,11 @@
 		
 		.maint{
 			text-align: center;
-			width: 90%;
+			width: 100%;
+		}
+		
+		.uinfo{
+			width: 20%;
 		}
 		
 		td {
@@ -162,13 +166,13 @@
 		    $("<input type='hidden' value='' />")
 	        .attr("id", "" + field_count)
 	        .attr("name", "")
-	        .insertBefore(".search-form input[type=submit]");
+	        .insertAfter(".search-form input[type=submit]");
 		    
 		    //add input field
 	    	$("<input type='text' value='' />")
 	        .attr("id", "" + field_count)
 	        .attr("name", "")
-	        .insertBefore(".search-form input[type=submit]");
+	        .insertAfter(".search-form input[type=submit]");
 
 			//append detail selector
 			var newSelection = $("<select class='select_field' id='" + field_count + "' />");
@@ -177,7 +181,7 @@
 	    	     	.append($('<option>', { value : key })
 	    	        .text(value))  
 	    	});
-	    	newSelection.insertBefore(".search-form input[type=submit]");
+	    	newSelection.insertAfter(".search-form input[type=submit]");
 
 	    	//append detail selector
 			var logicSelection = $("<select class='logic_field' id='" + field_count + "' />");
@@ -186,8 +190,8 @@
 	    	     	.append($('<option>', { value : key })
 	    	        .text(value))  
 	    	});
-	    	logicSelection.insertBefore(".search-form input[type=submit]");
-	    	$("<br>").insertBefore(".search-form input[type=submit]");
+	    	logicSelection.insertAfter(".search-form input[type=submit]");
+	    	$("<br>").insertAfter(".search-form input[type=submit]");
 
 	   		field_count++;
 	    	$(".search-form input[name=parameter-count]").attr("value",field_count);
@@ -208,20 +212,21 @@
 	
 	function showInputBox(){
 		echo "<td><form method='POST' class='post-form' action='./submitpost.php'>"
-				."<textarea name='post_content' rows='10' cols = '50'/></textarea>"
+				."<textarea class = \"form-control\" name='post_content' rows='10' cols = '50'/></textarea>"
 				."<br><input class=\"btn btn-success\" type='submit' name='submit-post' value='Post' />"
-						."</form> </td>";
+						."</form>";
 	}
 	function showSearchBox(){
-		echo  "<td>
-    			
+		echo  "
+    			<br>
     			<form method='POST' class='search-form' action='./searchpost.php'>"
-				."<textarea name='search_box' rows='1' cols = '50'/></textarea>"
+				."<textarea class = \"form-control\" name='search_box' rows='1' cols = '50'/></textarea><br>"
 				."<input name='parameter-count' type='hidden' value='0'>"
-				."<br><input class=\"btn btn-success\" type='submit' name='search-post' value='Search' />"
-						."</form> 
-				<button id='add-field'>Add search field</button> 
-   					
+				."<div>
+    			<input class=\"btn btn-success\" type='submit' name='search-post' value='Search' />
+    			</div>
+    			</form>
+				<button class=\"btn btn-primary\" id='add-field'>Add search field</button> 
    			</td>";
 	
 	}
@@ -248,7 +253,7 @@
 // 			}
 // 		}
 		
-			echo "<table class = \"maint\"><tr><td valign=\"top\" rowspan=\"2\">
+			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
 				<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
 				<button type=\"button\" class=\"btn btn-danger\" onclick = \"location.href ='./signout.php';\">Logout</button>
@@ -277,8 +282,8 @@
 					clean_data($_SESSION["aboutme"])
 					.'<br> <br> </td>';
 			
-			showSearchBox();
 			showInputBox();
+			showSearchBox();
 			
 			echo " </tr>";
 			
@@ -300,7 +305,7 @@
 // 			$stmt->execute();
 // 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			
-			echo "<td> <table class=\"table table-bordered\" align='center' width='50%'>
+			echo "<td> <table align='center' width='50%'>
 				<tr>
 					<td>
 						<table align='center' border='1' width='100%' height='100%' id='data'>";

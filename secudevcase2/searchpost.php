@@ -15,7 +15,6 @@ $count = $_POST['parameter-count'];
 
 $details = "WHERE posts.content LIKE '%". trim($_POST['search_box']). "%'";
 
-
 if($count > 0){
 	$added = "";
 	//generate additional conditions

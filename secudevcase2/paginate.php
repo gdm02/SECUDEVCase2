@@ -1,3 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
+	
+	
+</head>
+<body>
 <?php
 class paginate
 {
@@ -17,24 +30,26 @@ class paginate
          if($stmt->rowCount()>0)
          {
                 foreach($results as $key=>$row) {
-					echo "<div class='post-container-";
+					/*echo "<div class='post-container-";
 					if($key % 2 == 0)
 						echo "even";
 					else
 						echo "odd";
-					echo "'>";
+					echo "'>";*/
 					
-					echo '<table border = "1" style = "width:100%">
+					echo '<div>';
+					
+					echo '<table class="table table-hover">
 					<tr>';
 					echo 
 					"<td> <a href='./userprofile.php?userprofile=" . $row['username'] . "'>". $row['fname'] . '</a></td>
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
-						echo '<td><button class="editpost">Edit</button></td>
+						echo '<td><button class="btn btn-warning" >Edit</button></td>
 						<td><form class="post-form" action="./deletepost.php" method="POST">
 	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
-	    				<input type="submit" value="Delete"/>
+	    				<input class="btn btn-danger" type="submit" value="Delete"/>
 	    				</form></td>';
 					}
 					
@@ -63,8 +78,8 @@ class paginate
                 <?php
          }
          } catch (PDOException $e) {
-             header("Location: error.php");
-             exit();       
+             //header("Location: error.php");
+             //exit();       
          }
   
  }
@@ -125,3 +140,6 @@ class paginate
   }
  }
 }
+?>
+</body>
+</html>
