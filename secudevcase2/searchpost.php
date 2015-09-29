@@ -11,6 +11,7 @@ function getCondition($cond_array,$index){
 //array of possible conditions
 $cond_array = array("Username", "Date");
 $logic_array = array("AND", "OR");
+
 //number of parameters
 $count = $_POST['parameter-count'];
 

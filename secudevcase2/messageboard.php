@@ -324,8 +324,6 @@
 								INNER JOIN accounts
 								ON posts.acc_id = accounts.id ' . $_SESSION['search-details'] . 
 								' ORDER BY last_edited DESC';
-						echo $query;
-						//$_SESSION['search-details'] = "";
 						
 						$records_per_page=10;
 						$newquery = $paginate->paging($query,$records_per_page);

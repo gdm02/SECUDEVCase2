@@ -24,8 +24,14 @@ class paginate
      public function dataview($query, $parameters)
      {
          try {
+         //echo $query;
          $stmt = $this->db->prepare($query);
-         $stmt->execute($parameters);
+         if($parameters != null){
+         	$stmt->execute($parameters);
+         }
+         else
+         	$stmt->execute();
+         
 		 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
          if($stmt->rowCount()>0)
          {
@@ -100,7 +106,12 @@ class paginate
         $self = htmlspecialchars($_SERVER['PHP_SELF']);
   
         $stmt = $this->db->prepare($query);
-        $stmt->execute($parameters);
+        
+        if($parameters != null){
+         	$stmt->execute($parameters);
+        }
+        else
+        $stmt->execute();
   
         $total_no_of_records = $stmt->rowCount();
   

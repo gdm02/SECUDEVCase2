@@ -8,7 +8,8 @@ $query = "INSERT INTO posts(acc_id, content, postdate, last_edited) " .
 try{
 	$stmt = $db->prepare($query);
 	$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' =>  strip($_POST["post_content"])));
-	$_SESSION['search-details'] = "";
+	unset($_SESSION['search-details']);
+	unset($_SESSION['parameters']);
 }
 catch(PDOException $e){
 	
