@@ -280,13 +280,29 @@
 					.'<br>
 					<label class="text-info">About Me: </label>'.
 					clean_data($_SESSION["aboutme"])
-					.'<br> 
-	    			<button type="button" class="btn btn-success">Backup</button> 
-	    			<br> </td>';
+					.'<br> ';
 			
 			showInputBox();
 			showSearchBox();
 			
+			if ($_SESSION['accesslvl'] == "admin") {
+				//include 'backup.php';
+				//$backup = new backup();
+				//echo $backup->getLastNo();
+				//echo $backup->create();
+				/*
+				echo '
+	    			<button type="button" class="btn btn-success" onclick = "$backup->create()">Backup</button> 
+	    			<br> </td>
+				';
+				*/
+				echo '
+	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Backup</button> 
+	    			<br></td>
+					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
+					<br></td>
+				';
+			}
 			echo " </tr>";
 			
 			if(!isset($_SESSION['search-details']))
