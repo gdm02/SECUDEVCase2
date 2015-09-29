@@ -139,6 +139,8 @@
 		var selectValues = ['Username','Date'];
 		var logicValues = ['AND', 'OR'];
 		var field_count = 0;
+		$(".search-form input[name=parameter-count]").attr("value",field_count);
+		
 	    $(".editpost").click(divClicked); //calls the function on button click
   
 	    $(document).on('change','.select_field', function() {
@@ -157,7 +159,7 @@
 	    $(document).on('change','.logic_field', function() {
 	        var id = $(this).attr("id");
 	        var val = $(this).find("option[value=" + $(this).val() + "]").text();
-	        $(".search-form input#" + id + "[type='hidden']").attr("name", "logic" + id).attr("value", val);
+	        $(".search-form input#" + id + "[type='hidden']").attr("value", val);
 	        
 	    });
 	    
@@ -165,14 +167,15 @@
 		    //add logic field
 		    $("<input type='hidden' value='' />")
 	        .attr("id", "" + field_count)
-	        .attr("name", "")
-	        .insertAfter(".search-form input[type=submit]");
+	        .attr("name", "logic" + field_count)
+	        .attr("value", "" + logicValues[0])
+	        .insertBefore(".search-form input[type=submit]");
 		    
 		    //add input field
 	    	$("<input type='text' value='' />")
 	        .attr("id", "" + field_count)
-	        .attr("name", "")
-	        .insertAfter(".search-form input[type=submit]");
+	        .attr("name", "" + selectValues[0] + field_count)
+	        .insertBefore(".search-form input[type=submit]");
 
 			//append detail selector
 			var newSelection = $("<select class='select_field' id='" + field_count + "' />");
@@ -181,7 +184,7 @@
 	    	     	.append($('<option>', { value : key })
 	    	        .text(value))  
 	    	});
-	    	newSelection.insertAfter(".search-form input[type=submit]");
+	    	newSelection.insertBefore(".search-form input[type=submit]");
 
 	    	//append detail selector
 			var logicSelection = $("<select class='logic_field' id='" + field_count + "' />");
@@ -190,12 +193,12 @@
 	    	     	.append($('<option>', { value : key })
 	    	        .text(value))  
 	    	});
-	    	logicSelection.insertAfter(".search-form input[type=submit]");
-	    	$("<br>").insertAfter(".search-form input[type=submit]");
+	    	logicSelection.insertBefore(".search-form input[type=submit]");
+	    	$("<br>").insertBefore(".search-form input[type=submit]");
 
 	   		field_count++;
 	    	$(".search-form input[name=parameter-count]").attr("value",field_count);
-	   		newSelection.find('option[value="Date"]').prop('selected', true);
+	   		//newSelection.find('option[value="Date"]').prop('selected', true);
 	   		//$('.select_field0 option:eq(1)').prop('selected', true)
 		   	});
 	    
@@ -305,24 +308,12 @@
 			}
 			echo " </tr>";
 			
-			if(!isset($_SESSION['search-details']))
+			if(!isset($_SESSION['search-details'])){
 				$_SESSION['search-details'] = "";
-			
-// 			$sql = 'SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
-// 								FROM posts  
-// 								INNER JOIN accounts
-// 								ON posts.acc_id = accounts.id 
-// 								ORDER BY last_edited DESC
-// 								LIMIT :limit';
-// 			echo $sql;
-			
-// 			$limit = 10;
-			
-// 			$stmt = $db->prepare($sql);
-// 			$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-// 			$stmt->execute();
-// 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			
+			}
+			if(!isset($_SESSION['parameters'])){
+				$_SESSION['parameters'] = null;
+			}
 			echo "<td> <table align='center' width='50%'>
 				<tr>
 					<td>
@@ -338,8 +329,8 @@
 						
 						$records_per_page=10;
 						$newquery = $paginate->paging($query,$records_per_page);
-						$paginate->dataview($newquery);
-						$paginate->paginglink($query,$records_per_page);  
+						$paginate->dataview($newquery, $_SESSION['parameters']);
+						$paginate->paginglink($query, $_SESSION['parameters'], $records_per_page);  
 						echo "
 						</table>
 					</td>

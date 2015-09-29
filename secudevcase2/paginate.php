@@ -21,11 +21,11 @@ class paginate
          $this->db = $DB_con;
      }
  
-     public function dataview($query)
+     public function dataview($query, $parameters)
      {
          try {
          $stmt = $this->db->prepare($query);
-         $stmt->execute();
+         $stmt->execute($parameters);
 		 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
          if($stmt->rowCount()>0)
          {
@@ -95,12 +95,12 @@ class paginate
         return $query2;
  }
  
- public function paginglink($query,$records_per_page)
+ public function paginglink($query, $parameters, $records_per_page)
  {
         $self = htmlspecialchars($_SERVER['PHP_SELF']);
   
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
+        $stmt->execute($parameters);
   
         $total_no_of_records = $stmt->rowCount();
   
