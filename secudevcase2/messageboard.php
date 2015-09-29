@@ -280,7 +280,9 @@
 					.'<br>
 					<label class="text-info">About Me: </label>'.
 					clean_data($_SESSION["aboutme"])
-					.'<br> <br> </td>';
+					.'<br> 
+	    			<button type="button" class="btn btn-success">Backup</button> 
+	    			<br> </td>';
 			
 			showInputBox();
 			showSearchBox();
