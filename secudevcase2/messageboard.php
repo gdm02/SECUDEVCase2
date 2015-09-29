@@ -141,7 +141,7 @@
 		var field_count = 0;
 		$(".search-form input[name=parameter-count]").attr("value",field_count);
 		
-	    $(".editpost").click(divClicked); //calls the function on button click
+	    $("#editpost").click(divClicked); //calls the function on button click
   
 	    $(document).on('change','.select_field', function() {
 	        var id = $(this).attr("id");

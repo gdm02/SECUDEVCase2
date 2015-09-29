@@ -52,7 +52,7 @@ class paginate
 					<td>Date Posted: ' .$row['postdate'] . '</td>';
 					
 					if($_SESSION['accesslvl'] == "admin" || $_SESSION['id'] == $row['acc_id']){
-						echo '<td><button class="btn btn-warning" >Edit</button></td>
+						echo '<td><button class="btn btn-warning" id="editpost">Edit</button></td>
 						<td><form class="post-form" action="./deletepost.php" method="POST">
 	    				<input type="hidden" name="post_id" value="' . $row['id'] . '"/>
 	    				<input class="btn btn-danger" type="submit" value="Delete"/>

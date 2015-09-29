@@ -7,8 +7,11 @@
 	            ';
 		//return preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', 
 					//strip_tags(trim($var), $allowed));
-		$string = strip_tags($var, $allowed);
+		//$string = strip_tags(trim($var), $allowed);
+		return strip_tags(trim($var), $allowed);
 		
+	}
+	function sanitize_html($string){
 		$dom = new DOMDocument();
 		$dom->loadHTML($string);
 		$allowed_attributes = array('src');
