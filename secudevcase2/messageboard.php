@@ -239,27 +239,13 @@
 			header("Location: userreset.php"); /* Redirect browser */
 			// 				exit();
 		}
-// 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-// 			if($current_id == $_SESSION['id']){
-// 				if(isset($_POST[$submit_key]))
-// 					echo "submit submitted";
-// 				else if(isset($_POST[$delete_key]))
-// 					echo "delete submitted";
-// 				else if(isset($_POST[$edit_key]))
-// 					echo "edit submitted";
-// 				else 
-// 					echo "Invalid request.";
-// 			}
-// 			else{
-// 				header("Location: userreset.php"); /* Redirect browser */
-// 				exit();
-// 			}
-// 		}
+
 		
 			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
 				<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
-				<button type=\"button\" class=\"btn btn-danger\" onclick = \"location.href ='./signout.php';\">Logout</button>
+				<form  action='./signout.php' method='POST'><input type='hidden' name='verify' value='logout'><input class='btn btn-danger' type='submit' value='Logout'/>
+	    		</form> 
 				 </div>";
 			echo 
 					'<h3 class="text-info">User Info: </h3>
