@@ -18,8 +18,7 @@
 			
 			$lastno = getLastNo();
 			$filename = "./backups/backup" . $lastno . ".csv";
-			//echo $filename;
-			//echo $query;
+			
 			$fp = fopen($filename, 'w');
 			
 			$colheaders = array ('Username', 'Date Posted', 'Post');
@@ -44,8 +43,5 @@
 		header("Location: ./error.php");
 		exit();
 	}
-	
-	//alert("Backup success.");
-	//return 0;
 	
 ?>

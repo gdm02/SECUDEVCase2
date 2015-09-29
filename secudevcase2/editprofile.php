@@ -91,6 +91,7 @@
 		$firstname = $lastname = $gender = $salutation = $birthdate = $password = $aboutme = $accesslvl = "";
 		$firstnameErr = $lastnameErr = $genderErr = $salutationErr = $birthdateErr = $usernameErr = $passwordErr = $aboutmeErr = $accesslvlErr = "";
 		
+		echo "<a href='messageboard.php'> Back to message board.</a>";
 		// For checking
 		$maleSalutations = array('Mr', 'Sir', 'Senior', 'Count');
 		$femaleSalutations = array('Miss', 'Ms', 'Mrs', 'Madame', 'Majesty', 'Seniora');
@@ -211,7 +212,7 @@
 					$_SESSION['birthdate'] = $_POST['birthdate'];
 					$_SESSION['password'] = $_POST['password'];
 					$_SESSION['aboutme'] = $_POST['aboutme'];
-					echo "<div id = \"success\"> Profile updated. <a href='messageboard.php'> Back to message board.</a> </div>";
+					echo "<div id = \"success\"> Profile updated.</div> ";
 				}
 				catch(PDOException $e){
 					echo "<div id = \"fail\">An error occured. Click <a href='main.php'>here</a> to go back to main page.</div>";

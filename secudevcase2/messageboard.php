@@ -300,7 +300,7 @@
 				';
 				*/
 				echo '
-	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Backup</button> 
+	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Export backup</button> 
 	    			<br></td>
 					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
 					<br></td>
