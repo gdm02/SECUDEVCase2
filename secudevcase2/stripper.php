@@ -7,8 +7,18 @@
 	            ';
 		//return preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', 
 					//strip_tags(trim($var), $allowed));
-		//$string = strip_tags(trim($var), $allowed);
-		return strip_tags(trim($var), $allowed);
+		$string = strip_tags(trim($var), $allowed);
+		$dom = new DOMDocument();
+		$dom->loadHTML($string);
+		$allowed_attributes = array('src');
+		foreach($dom->getElementsByTagName('*') as $node){
+			for($i = $node->attributes->length -1; $i >= 0; $i--){
+				$attribute = $node->attributes->item($i);
+				if(!in_array($attribute->name,$allowed_attributes)) $node->removeAttributeNode($attribute);
+			}
+		}
+		return ($dom->saveHTML());
+		//return strip_tags(trim($var), $allowed);
 		
 	}
 	function sanitize_html($string){

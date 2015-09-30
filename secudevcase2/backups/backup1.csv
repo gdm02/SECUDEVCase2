@@ -1,24 +1,42 @@
 Username,"Date Posted",Post
-admin,2015-09-30,Test
-gab,2015-09-23,d
-gab,2015-09-23,dsds
-gab,2015-09-23,asd
-gab,2015-09-23,gags
-gab,2015-09-23,wow
-gab,2015-09-23,spam
-gab,2015-09-23,s
-gab,2015-09-23,a
-gab,2015-09-23,s
-gab,2015-09-23,d
-gab,2015-09-23,f
-gab,2015-09-23,g
-gab,2015-09-23,h
-gab,2015-09-23,j
-gab,2015-09-23,w
-gab,2015-09-23,s
-admin,2015-09-13,"i am admin"
-admin,2015-09-13,"you cannot see edit"
-admin,2015-09-13,"<b> this is bold "
-rets,2015-09-13,"i am batman"
-rets,2015-09-13,"i am batman legend"
-rets,2015-09-13,"div test"
+admin,2015-09-30,hello
+admin,2015-09-30,hi
+admin,2015-09-30,"<b> bold</b>"
+admin,2015-09-30,<i>italic</i>
+admin,2015-09-30,"dummy post"
+admin,2015-09-30,"just some post!"
+admin,2015-09-30,"<img src=""signout.php"" alt=""signout.php"" />"
+admin,2015-09-30,hello
+admin,2015-09-30,what
+admin,2015-09-30,"hi there"
+admin,2015-09-30,
+admin,2015-09-30,
+admin,2015-09-30,"&lt;script type='text/js'&gt;
+window.alert(""hello"");
+&lt;/script&gt;"
+admin,2015-09-30,
+admin,2015-09-30,
+admin,2015-09-30,"<a href=""signout.php""> blahblah </a>"
+admin,2015-09-30,"<a> ahahah </a>"
+admin,2015-09-30,
+admin,2015-09-30,
+admin,2015-09-30,
+admin,2015-09-30,<a>asjduasd</a>
+admin,2015-09-30,
+admin,2015-09-30,<a></a>
+admin,2015-09-30,
+admin,2015-09-30,<div></div>
+admin,2015-09-30,"<div>
+DIV
+</div>"
+admin,2015-09-30,
+admin,2015-09-30,"<img src=""asdasidas"" alt=""asdasidas"" />"
+admin,2015-09-30,"<img src=""www.google.com"" alt=""www.google.com"" />"
+admin,2015-09-30,"<img src=""signout.php"" alt=""signout.php"" />"
+admin,2015-09-30,"<img src=""/signout.php"" alt=""signout.php"" />"
+admin,2015-09-30,"
+"
+rets,2015-09-30,"i am batman"
+rets,2015-09-30,"i am legend"
+rets,2015-09-30,hi
+rets,2015-09-30,hello

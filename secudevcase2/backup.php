@@ -1,7 +1,7 @@
 <?php
 	include 'session.php';
 	include 'connect.php';
-	
+
 	function getLastNo()
 	{
 		$dir = "./backups/";
@@ -15,9 +15,14 @@
 			$stmt = $db->prepare($query);
 			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			
 			$lastno = getLastNo();
 			$filename = "./backups/backup" . $lastno . ".csv";
+			
+			while (file_exists($filename)) {
+				$lastno++;
+				$filename = "./backups/backup" . $lastno . ".csv";
+			}
+			
 			
 			$fp = fopen($filename, 'w');
 			
