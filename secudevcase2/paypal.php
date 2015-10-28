@@ -140,6 +140,7 @@ function makePaymentUsingPayPal($total, $currency, $paymentDesc, $returnUrl, $ca
  * @param string $payerId PayerId as returned by PayPal post
  * 		buyer approval.
  */
+
 function executePayment($paymentId, $payerId) {
 
 	$payment = getPaymentDetails($paymentId);
@@ -149,6 +150,18 @@ function executePayment($paymentId, $payerId) {
 
 	return $payment;
 }
+
+
+// function executePayment($payerId) {
+
+// 	$payment = getPaymentDetails($paymentId);
+// 	$paymentExecution = new PaymentExecution();
+// 	$paymentExecution->setPayerId($payerId);
+// 	$payment = $payment->execute($paymentExecution, getApiContext());
+
+// 	return $payment;
+// }
+
 /**
  * Retrieves the payment information based on PaymentID from Paypal APIs
  *

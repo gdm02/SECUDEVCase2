@@ -7,7 +7,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$payment = makePaymentUsingPayPal($_POST['amount'], $_POST['currency'], $_POST['description'],
 			"$baseUrl&success=true", "$baseUrl&success=false");
 	
-	$_SESSION['PaymentID'] = $payment->getId();
+	$paymentid = $payment->getId();
+	$returnUrl = "$baseUrl&success=true&paymentid=" . $paymentid;
+	$cancelUrl = "$baseUrl&success=false&paymentid=" . $paymentid;
+	$redirectUrls = new RedirectUrls();
+	$redirectUrls->setReturnUrl($returnUrl);
+	$redirectUrls->setCancelUrl($cancelUrl);
+	$payment->setRedirectUrls($redirectUrls);
+	
 	header("Location: " . getLink($payment->getLinks(), "approval_url") );
 	exit;
 
