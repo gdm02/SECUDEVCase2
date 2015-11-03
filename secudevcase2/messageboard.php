@@ -286,10 +286,13 @@
 	    			<br> </td>
 				';
 				*/
+				$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 				echo '
 	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Export backup</button> 
 	    			<br></td>
 					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
+					<br></td>
+					<button type="button" class="btn btn-success" onclick = "echo $dir;">www</button>
 					<br></td>
 				';
 			}
