@@ -292,7 +292,7 @@
 	    			<br></td>
 					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
 					<br></td>
-					<button type="button" class="btn btn-success" onclick = "echo $dir;">www</button>
+					<button type="button" class="btn btn-success" onclick = "alert($dir);">www</button>
 					<br></td>
 				';
 			}
