@@ -34,7 +34,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if($stmt->rowCount()>0)
 {
 	foreach($results as $key=>$row) {
-		echo '<div id="item'. $key . '">';
+		echo '<div onclick="location.href=\'./viewitem.php?item_id=' . $row['id'] . '\';" id="item' . $key . '">';
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
 		echo '<br><form action="addtocart.php" method="POST">
  			<input type="hidden" name="itemid" value="'. $row['id'] .'">

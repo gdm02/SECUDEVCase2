@@ -7,10 +7,9 @@ if($_SESSION['accesslvl'] == "admin"){
 	echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button>
 			<br><br><br>";
 	echo	'All Transactions<br><br><br>';
-	$stmt = $db->prepare("SELECT transactions.id, amount, payment_id, description,time, accounts.fname, accounts.lname FROM transactions 
+	$stmt = $db->prepare("SELECT state,transactions.id, amount, payment_id, description,time, accounts.fname, accounts.lname FROM transactions 
 			INNER JOIN accounts 
-			ON transactions.acc_id = accounts.id 
-			WHERE state = 'approved'");
+			ON transactions.acc_id = accounts.id");
 	$stmt->execute();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		echo	'Transaction Details:<br><table>
@@ -19,6 +18,7 @@ if($_SESSION['accesslvl'] == "admin"){
 					<td>Buyer</td>
 					<td>Amount</td>
 					<td>Description</td>
+					<td>State</td>
 					<td>Date</td>
 				</tr>
 				<tr>
@@ -26,6 +26,7 @@ if($_SESSION['accesslvl'] == "admin"){
 					<td>' . $row['fname'] . ' ' . $row['lname'] . '</td>
 					<td>' . $row['amount'] . '</td>
 					<td>' . $row['description'] . '</td>
+					<td>' . $row['state'] . '</td>
 					<td>' . $row['time'] . '</td>
 				</tr>	
 				</table>	
