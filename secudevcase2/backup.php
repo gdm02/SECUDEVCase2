@@ -1,13 +1,13 @@
 <?php
 	include 'session.php';
 	include 'connect.php';
-
+	
+	$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
+	
 	function getLastNo()
 	{
 		//$dir = "./backups/";
 		//$dir = "http" . (($_SERVER["HTTPS"] == "on") ? "s://" : "://") . $_SERVER['HTTP_HOST'];
-		$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
-		echo $dir;
 		$fi = new FilesystemIterator($dir, FilesystemIterator::SKIP_DOTS);
 		return iterator_count($fi);
 	}
