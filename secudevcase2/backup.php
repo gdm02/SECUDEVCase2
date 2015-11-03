@@ -2,17 +2,17 @@
 	include 'session.php';
 	include 'connect.php';
 	
-	$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
-	
 	function getLastNo()
 	{
 		//$dir = "./backups/";
 		//$dir = "http" . (($_SERVER["HTTPS"] == "on") ? "s://" : "://") . $_SERVER['HTTP_HOST'];
+		$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 		$fi = new FilesystemIterator($dir, FilesystemIterator::SKIP_DOTS);
 		return iterator_count($fi);
 	}
 	
 	if ($_SESSION['accesslvl'] == "admin") {
+		$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 		try {
 			$query = "SELECT a.username AS 'Username', p.postdate AS 'Date Posted', p.content AS 'Post' FROM posts p, accounts a WHERE p.acc_id = a.id ORDER BY p.postdate DESC;";
 			$stmt = $db->prepare($query);
