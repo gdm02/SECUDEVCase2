@@ -273,6 +273,7 @@
 					.'<br> ';
 					$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 					echo "DIR: " . $dir;
+					echo $_SESSION['accesslvl'];
 			
 			showInputBox();
 			showSearchBox();
