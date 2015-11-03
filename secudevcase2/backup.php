@@ -19,11 +19,13 @@
 			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$lastno = getLastNo();
-			$filename = "./backups/backup" . $lastno . ".csv";
+			//$filename = "./backups/backup" . $lastno . ".csv";
+			$filename = $dir . "backup" . $lastno . ".csv";
 			
 			while (file_exists($filename)) {
 				$lastno++;
-				$filename = "./backups/backup" . $lastno . ".csv";
+				//$filename = "./backups/backup" . $lastno . ".csv";
+				$filename = $dir . "backup" . $lastno . ".csv";
 			}
 			
 			
