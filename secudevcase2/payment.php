@@ -1,24 +1,35 @@
 <?php
+include 'session.php';
+include 'connect.php';
 require_once 'bootstrap.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	$baseUrl = getBaseUrl() . "/paymentcompletion.php?";
-	$payment = makePaymentUsingPayPal($_POST['amount'], $_POST['currency'], $_POST['description'],
-			"$baseUrl&success=true", "$baseUrl&success=false");
+	$stmt = $db->prepare("INSERT INTO transactions(payment_id,acc_id,amount,state,description,time) 
+			VALUES (:payment_id,:acc_id,:amount,:state,:description, NOW())");
+	$stmt->execute(array(':payment_id'=>NULL,':acc_id'=>$_SESSION['id'],
+			':amount'=>$_SESSION['totalprice'],':state'=>NULL,':description'=>'Payment by Paypal'));
+	$trans_id = $db->lastInsertId();
 	
-	$paymentid = $payment->getId();
-	$returnUrl = "$baseUrl&success=true&paymentid=" . $paymentid;
-	$cancelUrl = "$baseUrl&success=false&paymentid=" . $paymentid;
-	$redirectUrls = new RedirectUrls();
-	$redirectUrls->setReturnUrl($returnUrl);
-	$redirectUrls->setCancelUrl($cancelUrl);
-	$payment->setRedirectUrls($redirectUrls);
+	//echo $trans_id;
+	try{
+	// Create the payment and redirect buyer to paypal for payment approval.
+	$baseUrl = getBaseUrl() . "/paymentcompletion.php?trans_id=$trans_id";
+
+	$payment = makePaymentUsingPayPal($_SESSION['totalprice'], 'USD', 'Payment by Paypal',
+			"$baseUrl&success=true", "$baseUrl&success=false");
+	}
+	catch(Exception $e){
+		//echo $e;
+	}
+	$stmt = $db->prepare("UPDATE transactions SET payment_id = :payment_id, state = :state WHERE id = :id");
+	$stmt->execute(array(':payment_id'=>$payment->getId(),':state'=>$payment->getState(),':id'=>$trans_id));
 	
 	header("Location: " . getLink($payment->getLinks(), "approval_url") );
 	exit;
-
+	
 }
+
 function getBaseUrl() {
 	$protocol = 'http';
 	if ($_SERVER['SERVER_PORT'] == 443 || (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on')) {
@@ -37,3 +48,17 @@ function getLink(array $links, $type) {
 	}
 	return "";
 }
+/*
+function addTransaction($acc_id, $payment_id, $state, $amount, $description) {
+
+	$stmt = $db->prepare("INSERT INTO transactions(payment_id,acc_id,amount,state,description,time) 
+			VALUES(:payment_id,:acc_id,:amount,:state,:description, NOW()");
+	$stmt->execute(array(':payment_id'=>$payment_id,':acc_id'=>$acc_id,
+			':amount'=>$amount,':state'=>$state,':description'=>$description));
+	return $db->lastInsertId();
+}
+function updateTransaction($transaction_id, $payment_id, $state){
+	$stmt = $db->prepare("UPDATE transactions SET payment_id = :payment_id, state = :state WHERE id = :id");
+	$stmt->execute(array(':payment_id'=>$payment_id,':state'=>$state,':id'=>$transaction_id));
+}
+*/

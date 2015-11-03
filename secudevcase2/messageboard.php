@@ -244,7 +244,7 @@
 			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
 				<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
-   				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./donate.php';\">Donate</button> 
+   				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button> 
 				<form  action='./signout.php' method='POST'><input type='hidden' name='verify' value='logout'><input class='btn btn-danger' type='submit' value='Logout'/>
 	    		</form> 
 				 </div>";
