@@ -273,7 +273,8 @@
 					.'<br> ';
 					$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 					echo "DIR: " . $dir;
-					echo $_SESSION['accesslvl'];
+					$dir = isset($_SERVER["HTTPS"]) ? "https://" : "http://" . $_SERVER["HTTP_HOST"] . "/backups/";
+					echo "DIR2: " . $dir;
 			
 			showInputBox();
 			showSearchBox();
