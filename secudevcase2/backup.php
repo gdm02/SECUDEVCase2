@@ -5,8 +5,8 @@
 	function getLastNo()
 	{
 		//$dir = "./backups/";
-		$dir = "http" . (($_SERVER["HTTPS"] == "on") ? "s://" : "://") . $_SERVER['HTTP_HOST'];
-		alert($dir);
+		//$dir = "http" . (($_SERVER["HTTPS"] == "on") ? "s://" : "://") . $_SERVER['HTTP_HOST'];
+		$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
 		$fi = new FilesystemIterator($dir, FilesystemIterator::SKIP_DOTS);
 		return iterator_count($fi);
 	}
