@@ -244,8 +244,15 @@
 			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
 				<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
-   				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button> 
-				<form  action='./signout.php' method='POST'><input type='hidden' name='verify' value='logout'><input class='btn btn-danger' type='submit' value='Logout'/>
+   				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button> ";
+   			echo	'<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="AU2HECSEH92XC">
+<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>';
+   					
+			echo	"<form  action='./signout.php' method='POST'><input type='hidden' name='verify' value='logout'><input class='btn btn-danger' type='submit' value='Logout'/>
 	    		</form> 
 				 </div>";
 			echo 
