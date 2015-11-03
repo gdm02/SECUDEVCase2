@@ -271,10 +271,6 @@
 					<label class="text-info">About Me: </label>'.
 					clean_data($_SESSION["aboutme"])
 					.'<br> ';
-					$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
-					echo "DIR: " . $dir;
-					$dir = isset($_SERVER["HTTPS"]) ? "https://" : "http://" . $_SERVER["HTTP_HOST"] . "/backups/";
-					echo "DIR2: " . $dir;
 			
 			showInputBox();
 			showSearchBox();
