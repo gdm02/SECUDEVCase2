@@ -7,6 +7,7 @@
 		//$dir = "./backups/";
 		//$dir = "http" . (($_SERVER["HTTPS"] == "on") ? "s://" : "://") . $_SERVER['HTTP_HOST'];
 		$dir = $_SERVER["DOCUMENT_ROOT"] . "/backups/";
+		alert($dir);
 		$fi = new FilesystemIterator($dir, FilesystemIterator::SKIP_DOTS);
 		return iterator_count($fi);
 	}
