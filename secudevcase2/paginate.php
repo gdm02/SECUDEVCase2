@@ -64,7 +64,7 @@ class paginate
 					<td><a href='./userprofile.php?userprofile=" . $row['username'] . "'>" . $row['username'] . '</a></td>
 					<td colspan="3">
 					
-					<div class = "textpost" id="'. $row['id'] .'">'. strip($row['content']) . '</div>
+					<div class = "textpost" id="'. $row['id'] .'">'. $row['content'] . '</div>
 					</td>
 					</tr>
 					<tr>

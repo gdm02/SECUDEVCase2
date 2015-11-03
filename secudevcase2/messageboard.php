@@ -239,27 +239,14 @@
 			header("Location: userreset.php"); /* Redirect browser */
 			// 				exit();
 		}
-// 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-// 			if($current_id == $_SESSION['id']){
-// 				if(isset($_POST[$submit_key]))
-// 					echo "submit submitted";
-// 				else if(isset($_POST[$delete_key]))
-// 					echo "delete submitted";
-// 				else if(isset($_POST[$edit_key]))
-// 					echo "edit submitted";
-// 				else 
-// 					echo "Invalid request.";
-// 			}
-// 			else{
-// 				header("Location: userreset.php"); /* Redirect browser */
-// 				exit();
-// 			}
-// 		}
+
 		
 			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
 				<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
-				<button type=\"button\" class=\"btn btn-danger\" onclick = \"location.href ='./signout.php';\">Logout</button>
+   				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./donate.php';\">Donate</button> 
+				<form  action='./signout.php' method='POST'><input type='hidden' name='verify' value='logout'><input class='btn btn-danger' type='submit' value='Logout'/>
+	    		</form> 
 				 </div>";
 			echo 
 					'<h3 class="text-info">User Info: </h3>
@@ -336,30 +323,7 @@
 			</table>
 			</td>
 	    	</table>";
-			/*
-			if($stmt->rowCount() > 0) {
-				echo "<table align='center' width='50%' border='1'>
-				<tr>
-					<td>
-						<table align='center' border='1' width='100%' height='100%' id='data'>";
-						$query = "SELECT posts.id, acc_id, content, postdate, last_edited, fname, username, joindate  
-								FROM posts 
-								INNER JOIN accounts
-								ON posts.acc_id = accounts.id 
-								ORDER BY last_edited DESC";       
-						$records_per_page=10;
-						$newquery = $paginate->paging($query,$records_per_page);
-						$paginate->dataview($newquery);
-						$paginate->paginglink($query,$records_per_page);  
-						echo "
-						</table>
-					</td>
-				</tr>
-			</table>";
-			} else {
-				echo "No posts to show. <br>";
-			}
-			*/
+			
 			
 		
 	?>
