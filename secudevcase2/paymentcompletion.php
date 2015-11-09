@@ -11,14 +11,28 @@ if(isset($_GET['success'])) {
 	if($_GET['success'] == 'true' && isset($_GET['PayerID']) && isset($_GET['trans_id'])) {
 		$trans_id = $_GET['trans_id'];
 		try {
-			$stmt = $db->prepare("SELECT payment_id from transactions WHERE id = :trans_id");
+			
+			//get payment id
+			$stmt = $db->prepare("SELECT payment_id,acc_id,amount from transactions WHERE id = :trans_id");
 			$stmt->execute(array(':trans_id' => $trans_id));
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				$payment_id = $row['payment_id'];
+				$acc_id = $row['acc_id'];
+				$amount = $row['amount'];
 			}
 			$payment = executePayment($payment_id, $_GET['PayerID']);
 			
-			//update state
+			//update user stats
+			$stmt = $db->prepare("SELECT amount_purchased FROM accounts WHERE id = :id");
+			$stmt->execute(array(':id'=>$acc_id));
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				$value = $row['amount_purchased'];
+				$value += $amount;
+			}
+			$stmt = $db->prepare("UPDATE accounts SET amount_purchased = :value WHERE id = :id");
+			$stmt->execute(array(':value'=>$value,':id' => $acc_id));
+			
+			//update transaction state
 			$stmt = $db->prepare("UPDATE transactions SET state = :state WHERE id = :trans_id");
 			$stmt->execute(array(':state'=>$payment->getState(),':trans_id' => $trans_id));
 			
@@ -37,8 +51,8 @@ if(isset($_GET['success'])) {
 		
 	} else {
 		$messageType = "error";
-		$message = "Your payment was cancelled. Go back to <a href='./store.php'>store</a>";
+		$message = "Your payment was cancelled.";
 	}
 }
-echo $message . "<br> Return to <a href='./store.php'> store</a>";
+echo $message . "<br> Return to <a href='./store.php'>store</a>";
 

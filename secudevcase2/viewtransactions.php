@@ -31,7 +31,7 @@ if($_SESSION['accesslvl'] == "admin"){
 				</tr>	
 				</table>	
 				';
-		echo	'Items bought: <br>';
+		echo	'Items: <br>';
 		$stmt2 = $db->prepare("SELECT items.name, quantity FROM orders 
 				INNER JOIN items
 				ON orders.item_id = items.id 

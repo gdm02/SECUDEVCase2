@@ -16,7 +16,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 	}
 	
-	
 	$stmt = $db->prepare("INSERT INTO transactions(payment_id,acc_id,amount,state,description,time) 
 			VALUES (:payment_id,:acc_id,:amount,:state,:description, NOW())");
 	$stmt->execute(array(':payment_id'=>NULL,':acc_id'=>$_SESSION['id'],
