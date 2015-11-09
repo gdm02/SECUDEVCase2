@@ -39,11 +39,11 @@ if(isset($_SESSION['cartitems'])){
 						<td> x' . $qtylist[$x] . '</td>
 						<td>' . number_format((float)($qtylist[$x] * $row['price']), 2, '.', '') . '</td>
 					</tr>';
-			$totalprice += $_SESSION['totalprice'];
+			
 		}
 		$itemindex++;
-
 	}
+	$totalprice = $_SESSION['totalprice'];
 	//$_SESSION['totalprice'] = $totalprice;
 
 	echo	'</table><br>

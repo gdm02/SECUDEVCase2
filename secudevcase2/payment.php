@@ -5,28 +5,48 @@ require_once 'bootstrap.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
+	//create orders list
+	$itemlist = array();
+	foreach($_SESSION['cartitems'] as $itemid){
+		if(!array_key_exists($itemid, $itemlist)){
+			$itemlist[$itemid] = 1;
+		}
+		else{
+			$itemlist[$itemid]++;
+		}
+	}
+	
+	
 	$stmt = $db->prepare("INSERT INTO transactions(payment_id,acc_id,amount,state,description,time) 
 			VALUES (:payment_id,:acc_id,:amount,:state,:description, NOW())");
 	$stmt->execute(array(':payment_id'=>NULL,':acc_id'=>$_SESSION['id'],
 			':amount'=>$_SESSION['totalprice'],':state'=>NULL,':description'=>'Payment by Paypal'));
 	$trans_id = $db->lastInsertId();
 	
-	//echo $trans_id;
+	
 	try{
 	// Create the payment and redirect buyer to paypal for payment approval.
-	$baseUrl = getBaseUrl() . "/paymentcompletion.php?trans_id=$trans_id";
-
-	$payment = makePaymentUsingPayPal($_SESSION['totalprice'], 'USD', 'Payment by Paypal',
-			"$baseUrl&success=true", "$baseUrl&success=false");
+		$baseUrl = getBaseUrl() . "/paymentcompletion.php?trans_id=$trans_id";
+		$payment = makePaymentUsingPayPal($_SESSION['totalprice'], 'USD', 'Payment by Paypal', $itemlist, $db,
+				"$baseUrl&success=true", "$baseUrl&success=false");
+		$stmt = $db->prepare("UPDATE transactions SET payment_id = :payment_id, state = :state WHERE id = :id");
+		$stmt->execute(array(':payment_id'=>$payment->getId(),':state'=>$payment->getState(),':id'=>$trans_id));
+		
+		foreach($itemlist as $key => $value){
+			$stmt = $db->prepare("INSERT INTO orders(transaction_id, item_id, quantity)
+ 			VALUES (:trans_id,:item_id,:quantity)");
+			$stmt->execute(array(':trans_id' => $trans_id, ':item_id' => $key, ':quantity' => $value));
+		}
+		
+		header("Location: " . getLink($payment->getLinks(), "approval_url") );
+		exit;
 	}
 	catch(Exception $e){
-		//echo $e;
+		$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';
+		header("Location: ./store.php"); /* Redirect browser */
+		exit();
 	}
-	$stmt = $db->prepare("UPDATE transactions SET payment_id = :payment_id, state = :state WHERE id = :id");
-	$stmt->execute(array(':payment_id'=>$payment->getId(),':state'=>$payment->getState(),':id'=>$trans_id));
 	
-	header("Location: " . getLink($payment->getLinks(), "approval_url") );
-	exit;
 	
 }
 

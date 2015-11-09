@@ -27,6 +27,11 @@ if($_SESSION['accesslvl'] == "admin"){
 			<br><br><br>";
 }
 
+if(isset($_SESSION['paymentresult'])){
+	echo $_SESSION['paymentresult'] . '<br><br>';
+	unset($_SESSION['paymentresult']);
+}
+
 $stmt = $db->prepare("SELECT * FROM items WHERE stock > 0");
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

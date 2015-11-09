@@ -9,6 +9,8 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
 /**
  * Save a credit card with paypal
  *
@@ -97,11 +99,29 @@ function makePaymentUsingCC($creditCardId, $total, $currency, $paymentDesc) {
  * 				to if the payment is cancelled
  * @return \PayPal\Api\Payment
  */
-function makePaymentUsingPayPal($total, $currency, $paymentDesc, $returnUrl, $cancelUrl) {
+function makePaymentUsingPayPal($total, $currency, $paymentDesc, $itemlist, $db, $returnUrl, $cancelUrl) {
 
 	$payer = new Payer();
 	$payer->setPaymentMethod("paypal");
-
+	
+	//create itemlist
+	$itemList = new ItemList();
+	foreach($itemlist as $key => $value){
+		$stmt = $db->prepare("SELECT id,name,price FROM items WHERE id = :id");
+		$stmt->execute(array(':id' => $key));
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+			//echo $row['name'];
+			$item = new Item();
+			$item->setName($row['name']);
+			$item->setCurrency($currency);
+			$item->setQuantity($value);
+			$item->setSku($row['id']); 
+			$item->setPrice($row['price']*$value);
+			$itemList->addItem($item);
+		}
+		//echo $item->quantity;
+	}
+	
 	// Specify the payment amount.
 	$amount = new Amount();
 	$amount->setCurrency($currency);
@@ -113,6 +133,7 @@ function makePaymentUsingPayPal($total, $currency, $paymentDesc, $returnUrl, $ca
 	// is fulfilling it. Transaction is created with
 	// a `Payee` and `Amount` types
 	$transaction = new Transaction();
+	$transaction->setItemList($itemList);
 	$transaction->setAmount($amount);
 	$transaction->setDescription($paymentDesc);
 

@@ -32,25 +32,7 @@ if(isset($_GET['success'])) {
 			$messageType = "error";
 		}
 		
-		//create orders list
-		$itemlist = array();
-		$qtylist = array();
-		foreach($_SESSION['cartitems'] as $itemid){
-			if(!in_array($itemid, $itemlist)){
-				$itemlist[] = $itemid;
-				$qtylist[] = 1;
-			}
-			else{
-				$key = array_search($itemid, $itemlist);
-				$qtylist[$key]++;
-			}
-		}
-		for ($x = 0; $x < count($itemlist); $x++) {
-			
-			$stmt = $db->prepare("INSERT INTO orders(transaction_id, item_id, quantity)
-			VALUES (:trans_id,:item_id,:quantity)");
-			$stmt->execute(array(':trans_id' => $trans_id, ':item_id' => $itemlist[$x], ':quantity' => $qtylist[$x]));
-		}
+		
 		unset($_SESSION['cartitems']);
 		
 	} else {
