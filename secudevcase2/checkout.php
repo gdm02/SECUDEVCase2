@@ -17,34 +17,29 @@ if(isset($_SESSION['cartitems'])){
 	$itemindex = 0;
 	
 	$itemlist = array();
-	$qtylist = array();
 	foreach($_SESSION['cartitems'] as $itemid){
-		if(!in_array($itemid, $itemlist)){
-			$itemlist[] = $itemid;
-			$qtylist[] = 1;
+		if(!array_key_exists($itemid, $itemlist)){
+			$itemlist[$itemid] = 1;
 		}
 		else{
-			$key = array_search($itemid, $itemlist);
-			$qtylist[$key]++;
+			$itemlist[$itemid]++;
 		}
 	}
 	
-	for ($x = 0; $x < count($itemlist); $x++) {	
+	foreach($itemlist as $key => $value){
 		$stmt = $db->prepare("SELECT * FROM items WHERE id = :itemid");
-		$stmt->execute(array(':itemid' => $itemlist[$x]));
+		$stmt->execute(array(':itemid' => $key));
 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 			echo	'<tr>
 						<td>' . $row['name'] . '</td>
 						<td>' . $row['price'] . '</td>
-						<td> x' . $qtylist[$x] . '</td>
-						<td>' . number_format((float)($qtylist[$x] * $row['price']), 2, '.', '') . '</td>
+						<td> x' . $value . '</td>
+						<td>' . number_format((float)($value * $row['price']), 2, '.', '') . '</td>
 					</tr>';
 			
 		}
-		$itemindex++;
 	}
 	$totalprice = $_SESSION['totalprice'];
-	//$_SESSION['totalprice'] = $totalprice;
 
 	echo	'</table><br>
 		Total:' . $totalprice . '<br><br>';

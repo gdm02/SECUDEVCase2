@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	
 	try{
-	// Create the payment and redirect buyer to paypal for payment approval.
+		// Create the payment and redirect buyer to paypal for payment approval.
 		$baseUrl = getBaseUrl() . "/paymentcompletion.php?trans_id=$trans_id";
 		$payment = makePaymentUsingPayPal($_SESSION['totalprice'], 'USD', 'Payment by Paypal', $itemlist, $db,
 				"$baseUrl&success=true", "$baseUrl&success=false");
@@ -40,6 +40,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		header("Location: " . getLink($payment->getLinks(), "approval_url") );
 		exit;
+	} catch (PayPal\Exception\PayPalConnectionException $ex) {
+		$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';
+		header("Location: ./store.php"); /* Redirect browser */
+		exit();
 	}
 	catch(Exception $e){
 		$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';

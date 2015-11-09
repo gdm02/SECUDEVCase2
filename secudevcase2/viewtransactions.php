@@ -9,7 +9,7 @@ if($_SESSION['accesslvl'] == "admin"){
 	echo	'All Transactions<br><br><br>';
 	$stmt = $db->prepare("SELECT state,transactions.id, amount, payment_id, description,time, accounts.fname, accounts.lname FROM transactions 
 			INNER JOIN accounts 
-			ON transactions.acc_id = accounts.id");
+			ON transactions.acc_id = accounts.id WHERE state IS NOT NULL");
 	$stmt->execute();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		echo	'Transaction Details:<br><table>

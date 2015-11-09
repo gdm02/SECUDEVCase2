@@ -110,16 +110,14 @@ function makePaymentUsingPayPal($total, $currency, $paymentDesc, $itemlist, $db,
 		$stmt = $db->prepare("SELECT id,name,price FROM items WHERE id = :id");
 		$stmt->execute(array(':id' => $key));
 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-			//echo $row['name'];
 			$item = new Item();
 			$item->setName($row['name']);
 			$item->setCurrency($currency);
 			$item->setQuantity($value);
 			$item->setSku($row['id']); 
-			$item->setPrice($row['price']*$value);
+			$item->setPrice($row['price']);
 			$itemList->addItem($item);
 		}
-		//echo $item->quantity;
 	}
 	
 	// Specify the payment amount.
