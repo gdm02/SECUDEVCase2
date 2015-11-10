@@ -241,11 +241,21 @@
 		}
 
 		
-			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">
-				<div class=\"btn-group\">
+			echo "<table class = \"maint\"> <tr> <td class = \"uinfo\" valign=\"top\" rowspan=\"2\">";
+			
+			if ($_SESSION['accesslvl'] == "admin") {
+			echo '
+	    			<div class=btn-group>
+	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Export backup</button>
+					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
+	    			</div><br><br>
+				';
+			}
+			
+			echo	"<div class=\"btn-group\">
 				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./editprofile.php';\">Edit Profile</button> 
    				<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button> ";
-   			echo	'<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+   			echo	'<br><br><form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="AU2HECSEH92XC">
 <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -282,7 +292,7 @@
 			showInputBox();
 			showSearchBox();
 			
-			if ($_SESSION['accesslvl'] == "admin") {
+			/* if ($_SESSION['accesslvl'] == "admin") {
 				//include 'backup.php';
 				//$backup = new backup();
 				//echo $backup->getLastNo();
@@ -292,14 +302,14 @@
 	    			<button type="button" class="btn btn-success" onclick = "$backup->create()">Backup</button> 
 	    			<br> </td>
 				';
-				*/
+				
 				echo '
+	    			<div class=btn-group>
 	    			<button type="button" class="btn btn-success" onclick = "location.href = \'./backup.php\';">Export backup</button> 
-	    			<br></td>
 					<button type="button" class="btn btn-success" onclick = "location.href = \'./backuplist.php\';">Backup List</button>
-					<br></td>
+	    			</div>
 				';
-			}
+			}*/
 			echo " </tr>";
 			
 			if(!isset($_SESSION['search-details'])){
@@ -308,7 +318,7 @@
 			if(!isset($_SESSION['parameters'])){
 				$_SESSION['parameters'] = null;
 			}
-			echo "<td> <table align='center' width='50%'>
+			echo "<td> <table align='center' width='60%'>
 				<tr>
 					<td>
 						<table align='center' border='1' width='100%' height='100%' id='data'>";
