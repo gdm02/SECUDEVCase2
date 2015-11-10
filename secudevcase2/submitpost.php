@@ -51,12 +51,9 @@ try{
 	unset($_SESSION['search-details']);
 	unset($_SESSION['parameters']);
 }
-catch(PDOException $e){
-	echo $e;
-}
 catch(Exception $e){
 	echo $e;
 }
 
-	//header("Location: ./messageboard.php"); /* Redirect browser */
-	//exit();
+	header("Location: ./messageboard.php"); /* Redirect browser */
+	exit();
