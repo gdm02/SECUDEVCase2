@@ -26,8 +26,8 @@ try{
 		$stmt->execute(array(':id' => $itemid));
 		
 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-			$append = '<br><div>' . $row['name'] . '<a href=viewitem.php?item_id=' . $itemid . '>
-					<br><img src="" alt="Item: '. $row['name'].'"></div>';
+			$append = '<br><br><div>' . $row['name'] . '<a href=viewitem.php?item_id=' . $itemid . '>
+					<br><img src="/'. $row['imgpath'] .'" alt="Item: '. $row['name'].'" style = "width:128px;height:128px"></div>';
 		}
 		
 		$content .= $append;
