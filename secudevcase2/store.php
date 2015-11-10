@@ -59,6 +59,8 @@ if($_SESSION['accesslvl'] == "admin"){
 
 	echo "<button type=\"button\" class=\"btn btn-success\" onclick = \"location.href ='./additem.php';\">Add Item</button> 
 			";
+	echo "<button type=\"button\" class=\"btn btn-success\" onclick = \"location.href ='./deleteitem.php';\">Delete Item</button>
+			";
 	echo "<button type=\"button\" class=\"btn btn-primary\" onclick = \"location.href ='./viewtransactions.php';\">View Transactions</button>
 			</div>";
 }
