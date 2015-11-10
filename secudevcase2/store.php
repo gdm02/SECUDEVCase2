@@ -84,6 +84,8 @@ if($stmt->rowCount()>0)
 {
 	echo '<table class="table">';
 	foreach($results as $key=>$row) {
+		if($key%4 == 0)
+			echo '<tr>';
 		echo '<td class = "hovers">';
 		echo '<div onclick="location.href=\'./viewitem.php?item_id=' . $row['id'] . '\';" id="item' . $key . '">';
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
@@ -97,6 +99,8 @@ if($stmt->rowCount()>0)
  			</form>';
 		echo '</div>';
 		echo "</td>";
+		if($key%4 == 3)
+			echo '</tr>';
 	}
 	echo '</table>';
 }
