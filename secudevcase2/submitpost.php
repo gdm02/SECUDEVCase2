@@ -35,7 +35,7 @@ try{
 	
 	$stmt = $db->prepare($query);
 	$stmt->execute(array(':acc_id' => $_SESSION['id'], ':content' => $content));
-	
+	echo "after posting";
 	//update user stats
 	$stmt = $db->prepare("SELECT num_posts FROM accounts WHERE id = :id");
 	$stmt->execute(array(':id'=>$_SESSION['id']));
@@ -43,10 +43,11 @@ try{
 		$value = $row['num_posts'];
 		$value++;
 	}
-	//echo $value;
+	echo $value;
 	$stmt = $db->prepare("UPDATE accounts SET num_posts = :value WHERE id = :id");
 	$stmt->execute(array(':value'=>$value,':id' => $_SESSION['id']));
 	
+	echo "after setting stats";
 	unset($_SESSION['search-details']);
 	unset($_SESSION['parameters']);
 }
