@@ -65,7 +65,7 @@ if($_SESSION['accesslvl'] == "admin"){
 
 echo "</td>";
 
-echo "<td rowspan = 2>";
+echo "<td rowspan = 2 valign=\"top\" >";
 
 if(isset($_SESSION['paymentresult'])){
 	echo $_SESSION['paymentresult'] . '<br><br>';
@@ -75,6 +75,8 @@ if(isset($_SESSION['paymentresult'])){
 $stmt = $db->prepare("SELECT * FROM items WHERE stock > 0");
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+echo '<h2>Item List:</h2>';
 
 if($stmt->rowCount()>0)
 {
