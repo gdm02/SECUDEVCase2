@@ -85,6 +85,8 @@ if($stmt->rowCount()>0)
 		echo '<td class = "hovers">';
 		echo '<div onclick="location.href=\'./viewitem.php?item_id=' . $row['id'] . '\';" id="item' . $key . '">';
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
+		$temp = '/' . $row['imgpath'];
+		echo '<img src = ".$temp." style = "width:128px;height:128px"';
 		echo '<br><form action="addtocart.php" method="POST">
  			<input type="hidden" name="itemid" value="'. $row['id'] .'">
 			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
