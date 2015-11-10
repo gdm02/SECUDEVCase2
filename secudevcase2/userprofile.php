@@ -63,65 +63,7 @@ if(isset($_REQUEST['userprofile']) && isset($_SESSION['signed_in']) && $_SESSION
 							.'<br>
 					<label>Badges: </label>';
 					
-					$postbadges = array(
-							"Participant" => 1,
-							"Chatter" => 2,
-							"Socialite" => 3,
-					);
-					
-					$donationbadges = array(
-							"Participant" => 1,
-							"Chatter" => 2,
-							"Socialite" => 3,
-					);
-					
-					$purchasebadges = array(
-							"Participant" => 1,
-							"Chatter" => 2,
-							"Socialite" => 3,
-					);
-				
-					$postbadge = "";
-					$donationbadge = "";
-					$purchasebadge = "";
-					$collectionbadge= "";
-					
-					//posts
-					$value = $row['num_posts'];
-					if($value >= 10)
-						$postbadge = 'Socialite';
-					else if ($value >= 5)
-						$postbadge = 'Chatter';
-					else if ($value >= 3)
-						$postbadge = 'Participant';
-					
-					//donations
-					$value = $row['amount_donated'];
-					if($value >= 100)
-						$donationbadge = 'Pillar';
-					else if ($value >= 20)
-						$donationbadge = 'Contributor';
-					else if ($value >= 5)
-						$donationbadge = 'Supporter';
-					
-					//purchase
-					$value = $row['amount_purchased'];
-					if($value >= 100)
-						$purchasebadge = 'Elite';
-					else if ($value >= 20)
-						$purchasebadge = 'Promoter';
-					else if ($value >= 5)
-						$purchasebadge = 'Shopper';
-					
-					//purchase
-					if($value >= 100)
-						$postbadge = 'Elite';
-					else if ($value >= 20)
-						$postbadge = 'Promoter';
-					else if ($value >= 5)
-						$postbadge = 'Shopper';
-					
-					echo $postbadge . ', ' . $donationbadge . ', ' . $purchasebadge;
+					include 'badges.php';
 			}
 		else{
 			echo '<label>No information can be displayed.</label>';

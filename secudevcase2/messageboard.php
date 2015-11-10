@@ -287,7 +287,14 @@
 					.'<br>
 					<label class="text-info">About Me: </label>'.
 					clean_data($_SESSION["aboutme"])
-					.'<br> ';
+					.'<br> 
+					<label class="text-info">Badges: </label>';
+					
+					$stmt = $db->prepare("SELECT amount_donated, amount_purchased, num_posts FROM accounts WHERE id=:id");
+					$stmt->execute(array(':id' => $_SESSION['id']));
+					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+						include 'badges.php';
+					}
 			
 			showInputBox();
 			showSearchBox();
