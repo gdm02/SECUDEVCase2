@@ -13,7 +13,7 @@ if($_SESSION['accesslvl'] == "admin"){
 		$stmt->execute(array(':id' => $_POST['itemid']));
 	}
 	catch(PDOException $e){
-		$result = "Error in removing item. Please try again.";
+		$result = "Cannot remove item.";
 	}
 }
 $_SESSION['deleteresult'] = $result;

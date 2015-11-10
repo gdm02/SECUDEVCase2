@@ -4,6 +4,9 @@ include 'session.php';
 include 'connect.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['item_id'])) {
+	echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button>
+			<br><br><br>";
+	
 	try{
 		$stmt = $db->prepare("SELECT * FROM items WHERE id = :itemid");
 		$stmt->execute(array(':itemid' => $_GET['item_id']));
@@ -28,6 +31,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['item_id'])) {
 		}
 	}
 	catch(Exception $e){
-		
+		echo 'Item cannot be displayed.';
 	}
 }
