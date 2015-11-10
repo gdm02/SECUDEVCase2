@@ -40,9 +40,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		header("Location: " . getLink($payment->getLinks(), "approval_url") );
 		exit;
 	} catch (PayPal\Exception\PayPalConnectionException $ex) {
-		$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';
-		header("Location: ./store.php"); /* Redirect browser */
-		exit();
+		echo $ex;
+		//$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';
+		//header("Location: ./store.php"); /* Redirect browser */
+		//exit();
 	}
 	catch(Exception $e){
 		$_SESSION['paymentresult'] = 'Error in processing payment. Please try again.';

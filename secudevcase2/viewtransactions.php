@@ -7,7 +7,7 @@ if($_SESSION['accesslvl'] == "admin"){
 	echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./store.php';\">Store</button>
 			<br><br><br>";
 	echo	'All Transactions<br><br><br>';
-	$stmt = $db->prepare("SELECT state,transactions.id, amount, payment_id, description,time, accounts.fname, accounts.lname FROM transactions 
+	$stmt = $db->prepare("SELECT state,transactions.id, amount, payment_id, description,time, accounts.fname, accounts.lname, accounts.username FROM transactions 
 			INNER JOIN accounts 
 			ON transactions.acc_id = accounts.id WHERE state IS NOT NULL");
 	$stmt->execute();
@@ -16,6 +16,7 @@ if($_SESSION['accesslvl'] == "admin"){
 				<tr>
 					<td>Payment ID</td>
 					<td>Buyer</td>
+					<td>Username</td>
 					<td>Amount</td>
 					<td>Description</td>
 					<td>State</td>
@@ -24,6 +25,7 @@ if($_SESSION['accesslvl'] == "admin"){
 				<tr>
 					<td>' . $row['payment_id'] . '</td>
 					<td>' . $row['fname'] . ' ' . $row['lname'] . '</td>
+					<td>' . $row['username'] . '</td>
 					<td>' . $row['amount'] . '</td>
 					<td>' . $row['description'] . '</td>
 					<td>' . $row['state'] . '</td>
