@@ -89,7 +89,8 @@ if($stmt->rowCount()>0)
 		echo '<td class = "hovers">';
 		echo '<div onclick="location.href=\'./viewitem.php?item_id=' . $row['id'] . '\';" id="item' . $key . '">';
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
-		$temp = $_SERVER["DOCUMENT_ROOT"] . "/" . $row['imgpath'];
+		//$temp = $_SERVER["DOCUMENT_ROOT"] . "/" . $row['imgpath'];
+		$temp = "/" . $row['imgpath'];
 		echo '<img src = "' . $temp . '" style = "width:128px;height:128px">';
 		echo '<br><form action="addtocart.php" method="POST">
  			<input type="hidden" name="itemid" value="'. $row['id'] .'">
