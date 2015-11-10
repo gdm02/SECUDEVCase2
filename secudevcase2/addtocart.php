@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['itemid'])) {
 // 	else{
 // 		$items = array();
 // 	}
-	
+	try{
 	//$items[] = $_POST['itemid'];
 	$query = "SELECT id, quantity FROM carts WHERE acc_id = :acc_id AND item_id = :item_id";
 	$stmt = $db->prepare($query);
@@ -28,6 +28,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['itemid'])) {
 		$stmt = $db->prepare($query);
 		$stmt->execute(array(':acc_id' => $_SESSION['id'], 
 				':item_id' => $_POST['itemid'], ':quantity' => 1));
+	}
+	}catch(Exception $e){
+		echo $e;
 	}
 	//$_SESSION['cartitems'] = $items;
 }
