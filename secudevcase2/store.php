@@ -15,17 +15,57 @@ echo 	'<!DOCTYPE html>
 
 		<title>Store</title>
 
+		<style>
+			
+			body{
+				background-color: lavender;
+			}
+		
+			label{
+				font-size: 18px;
+			}
+			
+			.maint{
+				text-align: center;
+				width: 95%;
+			}
+			
+			td {
+				padding: 12px;
+			}
+		
+			.uinfo{
+				width: 20%;
+			}
+		
+			.hovers:hover{
+				background-color: #F2F2F2;
+			}
+			
+		</style>
+		
 		</head>
+		
 		<body>';
 
-echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./messageboard.php';\">Messageboard</button> ";
+echo "<table class = \"maint\"> <tr> ";
+
+echo "<td class = \"uinfo\" valign=\"top\" >";
+
+echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./messageboard.php';\">Messageboard</button><br> ";
 
 if($_SESSION['accesslvl'] == "admin"){
-	echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./additem.php';\">Add Item</button> 
+	echo "<div class = \"btn-group\">";	
+
+	echo "<button type=\"button\" class=\"btn btn-success\" onclick = \"location.href ='./additem.php';\">Add Item</button> 
 			";
-	echo "<button type=\"button\" class=\"btn btn-warning\" onclick = \"location.href ='./viewtransactions.php';\">View Transactions</button>
-			<br><br><br>";
+	echo "<button type=\"button\" class=\"btn btn-primary\" onclick = \"location.href ='./viewtransactions.php';\">View Transactions</button>
+			</div>";
 }
+
+echo "</td>";
+
+echo "<td rowspan = 2>";
 
 if(isset($_SESSION['paymentresult'])){
 	echo $_SESSION['paymentresult'] . '<br><br>';
@@ -38,7 +78,9 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if($stmt->rowCount()>0)
 {
+	echo '<table class="table">';
 	foreach($results as $key=>$row) {
+		echo '<td class = "hovers">';
 		echo '<div onclick="location.href=\'./viewitem.php?item_id=' . $row['id'] . '\';" id="item' . $key . '">';
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
 		echo '<br><form action="addtocart.php" method="POST">
@@ -47,19 +89,27 @@ if($stmt->rowCount()>0)
  					<br><br>
  			</form>';
 		echo '</div>';
+		echo "</td>";
 	}
+	echo '</table>';
 }
 else{
 	echo	'There are no items available.';
 }	
 
+echo "</td>";
+
+echo "</tr>";
+
+echo "<tr>";
+
+echo "<td class = \"uinfo\" valign=\"top\">";
+
 echo 		'<br><br><br>Cart<br>';
-
-
 
 if(isset($_SESSION['cartitems'])){	
 	$totalprice = 0.0;
-	echo '<table>
+	echo '<table align = "center">
 			<tr>
 				<td>Item</td>
 				<td>Price</td>
@@ -75,7 +125,7 @@ if(isset($_SESSION['cartitems'])){
 						<td>' . $row['price'] . '</td>
 						<td><form action="removefromcart.php" method="POST">
 								<input type="hidden" name="index" value="' . $itemindex . '">
-								<input type="submit" value="Remove"></form></td>
+								<input class="btn btn-danger" type="submit" value="Remove"></form></td>
 					</tr>';
 		$totalprice += $row['price'];
 		}
@@ -88,11 +138,19 @@ if(isset($_SESSION['cartitems'])){
 		Total:' . $totalprice . '<br><br>';
 
 	echo	'<form action="checkout.php" method="POST">
-			<input type="submit" value="Checkout">
+			<input class="btn btn-success" type="submit" value="Checkout">
 			</form>';
 }
 else{
 	echo	'There are no items in your cart.';
 }
+
+echo "</td>";
+
+echo "</tr>";
+
+echo "</table>";
+
 echo	'</body>
 		</html>';
+?>

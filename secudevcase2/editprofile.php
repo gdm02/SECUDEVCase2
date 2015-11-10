@@ -91,7 +91,7 @@
 		$firstname = $lastname = $gender = $salutation = $birthdate = $password = $aboutme = $accesslvl = "";
 		$firstnameErr = $lastnameErr = $genderErr = $salutationErr = $birthdateErr = $usernameErr = $passwordErr = $aboutmeErr = $accesslvlErr = "";
 		
-		echo "<a href='messageboard.php'> Back to message board.</a>";
+		echo "<br><a class=\"btn btn-success\" href='messageboard.php'> < Back to Message Board </a>";
 		// For checking
 		$maleSalutations = array('Mr', 'Sir', 'Senior', 'Count');
 		$femaleSalutations = array('Miss', 'Ms', 'Mrs', 'Madame', 'Majesty', 'Seniora');
