@@ -91,7 +91,7 @@ if($stmt->rowCount()>0)
 		echo $row['name'] . '<br>' . $row['description'] . '<br>' . $row['price'];
 		//$temp = $_SERVER["DOCUMENT_ROOT"] . "/" . $row['imgpath'];
 		$temp = "/" . $row['imgpath'];
-		echo '<img src = "' . $temp . '" style = "width:128px;height:128px">';
+		echo '<br><img src = "' . $temp . '" style = "width:128px;height:128px">';
 		echo '<br><form action="addtocart.php" method="POST">
  			<input type="hidden" name="itemid" value="'. $row['id'] .'">
 			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -118,43 +118,86 @@ echo "<td class = \"uinfo\" valign=\"top\">";
 
 echo 		'<br><br><br>Cart<br>';
 
-if(isset($_SESSION['cartitems'])){	
+//if(isset($_SESSION['cartitems'])){	
 	$totalprice = 0.0;
-	echo '<table align = "center">
-			<tr>
-				<td>Item</td>
-				<td>Price</td>
-				<td></td>
-			</tr>';
+	
 	$itemindex = 0;
-	foreach($_SESSION['cartitems'] as $itemid){
-		$stmt = $db->prepare("SELECT * FROM items WHERE id = :itemid");
-		$stmt->execute(array(':itemid' => $itemid));
+// 	foreach($_SESSION['cartitems'] as $itemid){
+// 		$stmt = $db->prepare("SELECT * FROM items WHERE id = :itemid");
+// 		$stmt->execute(array(':itemid' => $itemid));
+// 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+// 			echo	'<tr>
+// 						<td>' . $row['name'] . '</td>
+// 						<td>' . $row['price'] . '</td>
+// 						<td><form action="removefromcart.php" method="POST">
+// 								<input type="hidden" name="index" value="' . $itemindex . '">
+// 								<input class="btn btn-danger" type="submit" value="Remove"></form></td>
+// 					</tr>';
+// 		$totalprice += $row['price'];
+// 		}
+// 		$itemindex++;
+		
+// 	}
+	$stmt = $db->prepare("SELECT items.id, items.name, items.price, quantity FROM carts
+			INNER JOIN items
+			ON carts.item_id = items.id WHERE acc_id = :itemid");
+	$stmt->execute(array(':itemid' => $_SESSION['id']));
+	
+	if($stmt -> rowCount() > 0){
+		echo '<table align = "center">
+				<tr>
+					<td>Item</td>
+					<td>Price</td>
+					<td>Quantity</td>
+					<td></td>
+				</tr>';
+	
 		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 			echo	'<tr>
 						<td>' . $row['name'] . '</td>
 						<td>' . $row['price'] . '</td>
+						<td>' . $row['quantity'] . '</td>		
 						<td><form action="removefromcart.php" method="POST">
-								<input type="hidden" name="index" value="' . $itemindex . '">
+								<input type="hidden" name="itemid" value="' . $row['id'] . '">
 								<input class="btn btn-danger" type="submit" value="Remove"></form></td>
 					</tr>';
-		$totalprice += $row['price'];
+			$totalprice += $row['price'] * $row['quantity'];
+			$itemindex++;
 		}
-		$itemindex++;
+		$_SESSION['totalprice'] = $totalprice;
 		
+		echo	'</table><br>
+				Total:' . $totalprice . '<br><br>';
+		
+		echo	'<form action="checkout.php" method="POST">
+					<input class="btn btn-success" type="submit" value="Checkout">
+					</form>';
+	}	
+	else{
+		echo	'There are no items in your cart.';
 	}
-	$_SESSION['totalprice'] = $totalprice;
 	
-	echo	'</table><br>
-		Total:' . $totalprice . '<br><br>';
-
-	echo	'<form action="checkout.php" method="POST">
-			<input class="btn btn-success" type="submit" value="Checkout">
-			</form>';
-}
-else{
-	echo	'There are no items in your cart.';
-}
+//}
+//else{
+	
+// 	$totalprice = 0.0;
+// 	echo '<table align = "center">
+// 			<tr>
+// 				<td>Item</td>
+// 				<td>Price</td>
+// 				<td></td>
+// 			</tr>';
+	
+// 	$stmt = $db->prepare("SELECT items.name, items.price FROM carts 
+// 			INNER JOIN items
+// 			ON carts.item_id = items.id WHERE acc_id = :itemid");
+// 	$stmt->execute(array(':itemid' => $_SESSION['id']));
+// 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		
+// 	}
+// 	if($stmt -> rowCount() == 0)
+	//echo	'There are no items in your cart.';
+//}
 
 echo "</td>";
 

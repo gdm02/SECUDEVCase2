@@ -5,7 +5,7 @@ include 'connect.php';
 
 echo	'Confirm Payment<br><br><br>';
 
-if(isset($_SESSION['cartitems'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$totalprice = 0.0;
 	echo '<table>
 			<tr>
@@ -14,33 +14,22 @@ if(isset($_SESSION['cartitems'])){
 				<td>Quantity</td>
 				<td>Amount</td>
 			</tr>';
-	$itemindex = 0;
 	
-	$itemlist = array();
-	foreach($_SESSION['cartitems'] as $itemid){
-		if(!array_key_exists($itemid, $itemlist)){
-			$itemlist[$itemid] = 1;
-		}
-		else{
-			$itemlist[$itemid]++;
-		}
-	}
-	
-	foreach($itemlist as $key => $value){
-		$stmt = $db->prepare("SELECT * FROM items WHERE id = :itemid");
-		$stmt->execute(array(':itemid' => $key));
-		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-			echo	'<tr>
+	$stmt = $db->prepare("SELECT items.id, items.name, items.price, quantity FROM carts
+			INNER JOIN items
+			ON carts.item_id = items.id WHERE acc_id = :itemid");
+	$stmt->execute(array(':itemid' => $_SESSION['id']));
+	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){		
+		echo	'<tr>
 						<td>' . $row['name'] . '</td>
 						<td>' . $row['price'] . '</td>
-						<td> x' . $value . '</td>
-						<td>' . number_format((float)($value * $row['price']), 2, '.', '') . '</td>
+						<td> x' . $row['quantity'] . '</td>
+						<td>' . number_format((float)($row['quantity'] * $row['price']), 2, '.', '') . '</td>
 					</tr>';
-			
-		}
 	}
+	
 	$totalprice = $_SESSION['totalprice'];
-
+	
 	echo	'</table><br>
 		Total:' . $totalprice . '<br><br>';
 

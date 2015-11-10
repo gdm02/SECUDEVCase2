@@ -7,13 +7,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	//create orders list
 	$itemlist = array();
-	foreach($_SESSION['cartitems'] as $itemid){
-		if(!array_key_exists($itemid, $itemlist)){
-			$itemlist[$itemid] = 1;
-		}
-		else{
-			$itemlist[$itemid]++;
-		}
+	$stmt = $db->prepare("SELECT items.id, items.name, items.price, quantity FROM carts
+			INNER JOIN items
+			ON carts.item_id = items.id WHERE acc_id = :itemid");
+	$stmt->execute(array(':itemid' => $_SESSION['id']));
+	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		$itemlist[$row['id']] = $row['quantity'];
 	}
 	
 	$stmt = $db->prepare("INSERT INTO transactions(payment_id,acc_id,amount,state,description,time) 

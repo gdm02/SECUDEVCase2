@@ -46,8 +46,9 @@ if(isset($_GET['success'])) {
 			$messageType = "error";
 		}
 		
-		
-		unset($_SESSION['cartitems']);
+		//clear cart
+		$stmt = $db->prepare("DELETE FROM carts WHERE acc_id = :acc_id");
+		$stmt->execute(array(':acc_id' => $acc_id));
 		
 	} else {
 		$messageType = "error";

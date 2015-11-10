@@ -3,18 +3,10 @@
 include 'session.php';
 include 'connect.php';
 
-if(isset($_SESSION['cartitems'])){
-	try{
-		$items = $_SESSION['cartitems'];
-		array_splice($items, $_POST['index'], 1);
-		$_SESSION['cartitems'] = $items;
-		if(count($items) == 0){
-			unset($_SESSION['cartitems']);
-		}
-	}
-	catch(Exception $e){
-		
-	}
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['itemid'])) {
+	$query = "DELETE FROM carts WHERE acc_id = :acc_id AND item_id = :item_id";
+	$stmt = $db->prepare($query);
+	$stmt->execute(array(':acc_id' => $_SESSION['id'], ':item_id' => $_POST['itemid']));
 }
 
 header("Location: ./store.php"); /* Redirect browser */
