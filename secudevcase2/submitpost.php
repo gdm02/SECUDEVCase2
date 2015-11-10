@@ -53,6 +53,9 @@ try{
 catch(PDOException $e){
 	echo $e;
 }
+catch(Exception $e){
+	echo $e;
+}
 
 	//header("Location: ./messageboard.php"); /* Redirect browser */
 	//exit();
