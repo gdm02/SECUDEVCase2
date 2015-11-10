@@ -21,6 +21,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['item_id'])) {
 				<td>'. $row['price'] . '</td>
 			</tr>
 			</table>';
+			
+			echo '<br><form action="shareitem.php" method=POST>
+					<input type=hidden name=itemid value='. $row['id'] . '>
+					<input type=submit value="Share this item"></form>';
 		}
 	}
 	catch(Exception $e){
