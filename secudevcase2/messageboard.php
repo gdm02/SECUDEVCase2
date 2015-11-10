@@ -65,7 +65,7 @@
 		
 		.maint{
 			text-align: center;
-			width: 100%;
+			width: 95%;
 		}
 		
 		.uinfo{
@@ -108,7 +108,7 @@
 			    })
 	    newForm.append('<input type="hidden" name="post_id" value="' + id + '" />');
 	    newForm.append(editableText);
-	    newForm.append('<input type="submit" name="edit-post" value="Save Changes" />');
+	    newForm.append('<input type="submit" class="btn btn-success" name="edit-post" value="Save Changes" />');
 
 	    newDiv.append(newForm);
 	    
