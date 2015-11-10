@@ -51,8 +51,8 @@ try{
 	unset($_SESSION['parameters']);
 }
 catch(PDOException $e){
-	
+	echo $e;
 }
 
-	header("Location: ./messageboard.php"); /* Redirect browser */
-	exit();
+	//header("Location: ./messageboard.php"); /* Redirect browser */
+	//exit();
